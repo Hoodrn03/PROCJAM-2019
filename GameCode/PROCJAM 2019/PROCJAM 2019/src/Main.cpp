@@ -1,42 +1,15 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GameLoop.h"
+
 int main()
 {
-	sf::RenderWindow l_Window(sf::VideoMode(800, 800), "This thing");
+	std::unique_ptr<GameLoop> l_ptrGameLoop;
 
-	// Setup
+	l_ptrGameLoop.reset(new GameLoop); 
 
-	while (l_Window.isOpen())
-	{
-		// Begin of loop 
-
-		sf::Event l_Event;
-
-		while(l_Window.pollEvent(l_Event))
-		{
-			// Handle Events
-
-			if (l_Event.type == sf::Event::Closed)
-			{
-				l_Window.close();
-			}
-
-
-			// Clear Window 
-
-			l_Window.clear();
-
-			// Draw Here
-
-			l_Window.display();
-
-			// Display Window 
-
-			// End of loop 
-
-		}
-	}
+	l_ptrGameLoop->m_RunGame(); 
 
 	return 0;
 }
