@@ -2,6 +2,8 @@
 
 Player::Player()
 {
+	// Create Player's sprite.
+
 	m_PlayerBody.setRadius(15.f);
 
 	m_PlayerBody.setOrigin(m_PlayerBody.getPosition().x + (m_PlayerBody.getGlobalBounds().width / 2),
@@ -10,17 +12,23 @@ Player::Player()
 	m_PlayerBody.setPosition(400, 400); 
 
 	m_PlayerBody.setFillColor(sf::Color(150, 150, 150, 255));
+
+	// End of player creation. 
 }
 
 Player::~Player()
 {
 }
 
+/*! \fn DrawPlayer Used to draw the player sprite onto the game window
+param one: The game window to draw onto.
+*/
 void Player::m_DrawPlayer(sf::RenderWindow& window)
 {
 	window.draw(m_PlayerBody);
 }
 
+/*! \fn Update Used to update the player once each loop. */
 void Player::m_Update()
 {
 	// Move Player; 
@@ -28,6 +36,7 @@ void Player::m_Update()
 	m_Movement();
 }
 
+/*! \fn Movement Used to handle the movement of the player character. */
 void Player::m_Movement()
 {
 	// Move Player. 

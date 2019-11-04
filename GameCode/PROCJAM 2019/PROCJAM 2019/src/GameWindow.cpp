@@ -31,6 +31,7 @@ int GameWindow::m_CreateWindow(int width, int height)
 /*! \fn CreateWindow : This will be used to initalize the game window.
 *Param One : Int - The width of the game window.
 *Param Two : Int - The height of the game window.
+*Param Three : std::string - The name for the game window. 
 */
 int GameWindow::m_CreateWindow(int width, int height, std::string name)
 {
@@ -51,6 +52,8 @@ int GameWindow::m_CreateWindow(int width, int height, std::string name)
 /*! \fn CreateWindow : This will be used to initalize the game window.
 *Param One : Int - The width of the game window.
 *Param Two : Int - The height of the game window.
+*Param Three : std::string - The name for the game window.
+*Param Four : unsinged int - A variable framerate limit for the game window. 
 */
 int GameWindow::m_CreateWindow(int width, int height, std::string name, unsigned int framerateLimit)
 {
@@ -74,6 +77,7 @@ sf::RenderWindow& GameWindow::m_GetWindow()
 	return m_RenderWindow;
 }
 
+/*! \fn GetUpperBounds : This will return the set of coordinates for the top, left of the game window */
 sf::Vector2f GameWindow::m_GetUpperBounds()
 {
 	sf::Vector2f l_ReturnVector; 
@@ -83,6 +87,7 @@ sf::Vector2f GameWindow::m_GetUpperBounds()
 	return l_ReturnVector;
 }
 
+/*! \fn GetLowerBounds : This will return the set of coordinates for the bottom, right of the game window */
 sf::Vector2f GameWindow::m_GetLowerBounds()
 {
 	sf::Vector2f l_ReturnVector;

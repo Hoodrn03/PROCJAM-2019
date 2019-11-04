@@ -8,6 +8,7 @@
 #include "Grid.h"
 #include "Player.h"
 
+/*! \class Used to hold the main game loop. */
 class GameLoop
 {
 	// Constructor 
@@ -30,6 +31,7 @@ private:
 
 public:
 
+	/*! \ fn RunGame : Used to begin the game loop*/
 	void m_RunGame(); 
 
 };

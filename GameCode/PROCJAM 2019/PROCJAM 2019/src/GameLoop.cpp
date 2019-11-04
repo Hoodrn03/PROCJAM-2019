@@ -8,6 +8,7 @@ GameLoop::~GameLoop()
 {
 }
 
+/*! \ fn RunGame : Used to begin the game loop*/
 void GameLoop::m_RunGame()
 {
 	// Window init. 
