@@ -36,6 +36,8 @@ public:
 
 	int m_CreateWindow(int width, int height, std::string name);
 
+	int m_CreateWindow(int width, int height, std::string name, unsigned int framerateLimit);
+
 	/*! \fn GetWindow : This will allow for access of the game window. */
 	sf::RenderWindow& m_GetWindow();
 

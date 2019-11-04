@@ -16,7 +16,7 @@ void GameLoop::m_RunGame()
 
 	l_ptrWindow.reset(new GameWindow());
 
-	l_ptrWindow->m_CreateWindow(800, 800, "PROCJAM 2019");
+	l_ptrWindow->m_CreateWindow(800, 800, "PROCJAM 2019", 120);
 
 	// Init Event Handler
 
@@ -32,6 +32,9 @@ void GameLoop::m_RunGame()
 
 	Player l_NewPlayer; 
 
+	l_NewPlayer.m_CreateView(300, 300);
+	
+
 	// Setup
 
 	while (l_ptrWindow->m_GetWindow().isOpen())
@@ -39,7 +42,7 @@ void GameLoop::m_RunGame()
 		// Begin of loop 
 
 		l_NewPlayer.m_Update(); 
-
+		l_NewPlayer.m_SetCurrentWindow(l_ptrWindow->m_GetWindow());
 		// Handle Events 
 
 		l_ptrEventHandler->m_HandleEvents(l_ptrWindow->m_GetWindow());

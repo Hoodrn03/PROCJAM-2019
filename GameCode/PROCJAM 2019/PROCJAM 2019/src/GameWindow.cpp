@@ -48,6 +48,26 @@ int GameWindow::m_CreateWindow(int width, int height, std::string name)
 	return 1;
 }
 
+/*! \fn CreateWindow : This will be used to initalize the game window.
+*Param One : Int - The width of the game window.
+*Param Two : Int - The height of the game window.
+*/
+int GameWindow::m_CreateWindow(int width, int height, std::string name, unsigned int framerateLimit)
+{
+	m_RenderWindow.create(sf::VideoMode(width, height), name);
+
+	m_RenderWindow.setFramerateLimit(framerateLimit);
+
+	if (m_RenderWindow.isOpen())
+	{
+		std::cout << "Window Open" << std::endl;
+
+		return 0;
+	}
+
+	return 1;
+}
+
 /*! \fn GetWindow : This will allow for access of the game window. */
 sf::RenderWindow& GameWindow::m_GetWindow()
 {

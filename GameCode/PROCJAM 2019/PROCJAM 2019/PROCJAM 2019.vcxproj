@@ -133,6 +133,7 @@
     <ClCompile Include="src\Cell.cpp" />
     <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
+    <ClCompile Include="src\GameView.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="inc\Cell.h" />
     <ClInclude Include="inc\EventHandler.h" />
     <ClInclude Include="inc\GameLoop.h" />
+    <ClInclude Include="inc\GameView.h" />
     <ClInclude Include="inc\GameWindow.h" />
     <ClInclude Include="inc\Grid.h" />
     <ClInclude Include="inc\Player.h" />

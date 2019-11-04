@@ -4,7 +4,9 @@
 
 #include "SFML/Graphics.hpp"
 
-class Player
+#include "GameView.h"
+
+class Player: public GameView
 {
 	// Constructor 
 
@@ -22,7 +24,7 @@ private:
 
 	sf::CircleShape m_PlayerBody;
 
-	sf::Vector2f m_MovementVector { 0, 0 };
+	sf::Vector2f m_MovementVector;
 
 	const float m_fSpeed = 1.5f;
 
