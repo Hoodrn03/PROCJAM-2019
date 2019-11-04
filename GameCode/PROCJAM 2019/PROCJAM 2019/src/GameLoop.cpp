@@ -18,11 +18,19 @@ void GameLoop::m_RunGame()
 
 	l_ptrWindow->m_CreateWindow(800, 800, "PROCJAM 2019");
 
+	// Init Event Handler
+
+	std::unique_ptr<EventHandler> l_ptrEventHandler; 
+
+	l_ptrEventHandler.reset(new EventHandler());
+
 	// Test Items. 
 
 	Grid l_NewGrid; 
 
 	l_NewGrid.m_CreateGrid(50, 40); 
+
+	Player l_NewPlayer; 
 
 	// Setup
 
@@ -30,34 +38,30 @@ void GameLoop::m_RunGame()
 	{
 		// Begin of loop 
 
-		sf::Event l_Event;
+		l_NewPlayer.m_Update(); 
 
-		while (l_ptrWindow->m_GetWindow().pollEvent(l_Event))
-		{
-			// Handle Events
+		// Handle Events 
 
-			if (l_Event.type == sf::Event::Closed)
-			{
-				l_ptrWindow->m_GetWindow().close();
-			}
+		l_ptrEventHandler->m_HandleEvents(l_ptrWindow->m_GetWindow());
 
+		// End of Events
 
-			// Clear Window 
+		// Clear Window 
 
-			l_ptrWindow->m_ClearWindow();
+		l_ptrWindow->m_ClearWindow();
 
-			// Beginning of drawing
+		// Beginning of drawing
 
-			l_NewGrid.m_DrawGrid(l_ptrWindow->m_GetWindow());
+		l_NewGrid.m_DrawGrid(l_ptrWindow->m_GetWindow());
 
-			// End of drawing
+		l_NewPlayer.m_DrawPlayer(l_ptrWindow->m_GetWindow());
 
-			l_ptrWindow->m_DisplayWindow();
+		// End of drawing
 
-			// Display Window 
+		l_ptrWindow->m_DisplayWindow();
 
-			// End of loop 
+		// Display Window 
 
-		}
+		// End of loop 
 	}
 }

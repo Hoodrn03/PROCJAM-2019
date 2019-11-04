@@ -131,16 +131,20 @@
   <ItemGroup>
     <ClCompile Include="inc\PUGIXML\pugixml.cpp" />
     <ClCompile Include="src\Cell.cpp" />
+    <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GameWindow.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\Cell.h" />
+    <ClInclude Include="inc\EventHandler.h" />
     <ClInclude Include="inc\GameLoop.h" />
     <ClInclude Include="inc\GameWindow.h" />
     <ClInclude Include="inc\Grid.h" />
+    <ClInclude Include="inc\Player.h" />
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp" />
     <ClInclude Include="inc\PUGIXML\pugixml.hpp" />
     <ClInclude Include="inc\SFML\Audio.hpp" />
