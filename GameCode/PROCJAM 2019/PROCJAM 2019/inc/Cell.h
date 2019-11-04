@@ -40,4 +40,6 @@ public:
 	*/
 	void m_DrawCell(sf::RenderWindow& window);
 
+	sf::Vector2f m_GetCellPosition(); 
+
 };

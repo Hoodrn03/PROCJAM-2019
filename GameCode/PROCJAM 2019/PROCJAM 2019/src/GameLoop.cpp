@@ -29,11 +29,11 @@ void GameLoop::m_RunGame()
 
 	Grid l_NewGrid; 
 
-	l_NewGrid.m_CreateGrid(50, 40); 
+	l_NewGrid.m_CreateGrid(10, 5); 
 
 	Player l_NewPlayer; 
 
-	l_NewPlayer.m_CreateView(300, 300);
+	l_NewPlayer.m_CreateView(800, 800);
 	
 
 	// Setup
@@ -42,8 +42,15 @@ void GameLoop::m_RunGame()
 	{
 		// Begin of loop 
 
+		// Update Items
+
 		l_NewPlayer.m_Update(); 
 		l_NewPlayer.m_SetCurrentWindow(l_ptrWindow->m_GetWindow());
+
+		l_NewGrid.m_UpdateGrid(); 
+
+		// End of Update
+
 		// Handle Events 
 
 		l_ptrEventHandler->m_HandleEvents(l_ptrWindow->m_GetWindow());

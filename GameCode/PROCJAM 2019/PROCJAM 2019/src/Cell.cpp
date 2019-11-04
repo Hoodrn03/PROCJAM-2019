@@ -36,3 +36,8 @@ void Cell::m_DrawCell(sf::RenderWindow& window)
 {
 	window.draw(m_CellBody);
 }
+
+sf::Vector2f Cell::m_GetCellPosition()
+{
+	return m_CellBody.getPosition();
+}
