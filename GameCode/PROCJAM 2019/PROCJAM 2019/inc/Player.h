@@ -49,4 +49,5 @@ public:
 	/*! \fn Movement Used to handle the movement of the player character. */
 	void m_Movement(); 
 
+	sf::Vector2f m_GetPlayerPosition(); 
 };

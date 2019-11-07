@@ -39,13 +39,67 @@ void Grid::m_CreateGrid(unsigned int rows, unsigned int columns)
 
 		l_fXoffset += l_fCellWidth;
 	}
+
+	m_TopLeft = v_Grid[1][1].m_GetCellPosition(); 
+
+	int l_iShrinkX = (v_Grid.size() - 2), l_iShrinkY = (v_Grid[0].size() - 2);
+
+	m_BottomRight = sf::Vector2f(l_iShrinkX * l_fCellWidth, l_iShrinkY * l_fCellHeight);
+
+}
+
+void Grid::m_CreateBorderline()
+{
+	m_Borderline.setPosition(m_TopLeft);
+	m_Borderline.setSize(m_BottomRight);
+
+	m_Borderline.setFillColor(sf::Color::Green); 
 }
 
 void Grid::m_UpdateGrid()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (m_iAddCellDirection == 1)
 	{
-		m_AddCellsRight(); 
+		m_AddCellsUp();
+
+		m_iAddCellDirection = 0; 
+	}
+	else if (m_iAddCellDirection == 2)
+	{
+		m_AddCellsDown();
+
+		m_iAddCellDirection = 0;
+	}
+	else if (m_iAddCellDirection == 3)
+	{
+		m_AddCellsLeft();
+
+		m_iAddCellDirection = 0;
+	}
+	else if (m_iAddCellDirection == 4)
+	{
+		m_AddCellsRight();
+
+		m_iAddCellDirection = 0;
+	}
+	
+
+}
+
+void Grid::m_CheckForCollision(sf::Vector2f playerPos)
+{
+	int l_iResult; 
+
+	// Top of Grid.
+
+	l_iResult = m_ExitBox(m_Borderline.getPosition().x, m_Borderline.getPosition().y, m_Borderline.getGlobalBounds().width,
+		m_Borderline.getGlobalBounds().height, playerPos.x, playerPos.y);
+
+	if (l_iResult > 0)
+	{
+		m_iAddCellDirection = l_iResult;
+
+		std::cout << "Outside " << l_iResult << std::endl;
 	}
 
 }
@@ -62,11 +116,13 @@ void Grid::m_DrawGrid(sf::RenderWindow& window)
 			v_Grid[i][j].m_DrawCell(window);
 		}
 	}
+
+	window.draw(m_Borderline); 
 }
 
 void Grid::m_AddCellsUp()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2; 
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4; 
 
 	l_iRowsToAdd = v_Grid.size(); 
 
@@ -98,11 +154,19 @@ void Grid::m_AddCellsUp()
 		l_fYoffset = l_fStartingY; 
 	}
 
+	m_TopLeft = v_Grid[1][1].m_GetCellPosition();
+
+	int l_iShrinkX = (v_Grid.size() - 2), l_iShrinkY = (v_Grid[0].size() - 2);
+
+	m_BottomRight = sf::Vector2f(l_iShrinkX * l_fCellWidth, l_iShrinkY * l_fCellHeight);
+
+	m_CreateBorderline();
+
 }
 
 void Grid::m_AddCellsDown()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
 
 	l_iRowsToAdd = v_Grid.size();
 
@@ -136,11 +200,18 @@ void Grid::m_AddCellsDown()
 		l_fYoffset = l_fStartingY;
 	}
 
+	m_TopLeft = v_Grid[1][1].m_GetCellPosition();
+
+	int l_iShrinkX = (v_Grid.size() - 2), l_iShrinkY = (v_Grid[0].size() - 2);
+
+	m_BottomRight = sf::Vector2f(l_iShrinkX * l_fCellWidth, l_iShrinkY * l_fCellHeight);
+
+	m_CreateBorderline();
 }
 
 void Grid::m_AddCellsLeft()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
 
 	l_iRowsToAdd = v_Grid[0].size();
 
@@ -177,11 +248,19 @@ void Grid::m_AddCellsLeft()
 
 		l_fXoffset -= l_fCellWidth;
 	}
+
+	m_TopLeft = v_Grid[1][1].m_GetCellPosition();
+
+	int l_iShrinkX = (v_Grid.size() - 2), l_iShrinkY = (v_Grid[0].size() - 2);
+
+	m_BottomRight = sf::Vector2f(l_iShrinkX * l_fCellWidth, l_iShrinkY * l_fCellHeight);
+
+	m_CreateBorderline();
 }
 
 void Grid::m_AddCellsRight()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
 
 	l_iRowsToAdd = v_Grid[0].size();
 
@@ -218,4 +297,12 @@ void Grid::m_AddCellsRight()
 
 		l_fXoffset += l_fCellWidth;
 	}
+
+	m_TopLeft = v_Grid[1][1].m_GetCellPosition();
+
+	int l_iShrinkX = (v_Grid.size() - 2), l_iShrinkY = (v_Grid[0].size() - 2);
+
+	m_BottomRight = sf::Vector2f(l_iShrinkX * l_fCellWidth, l_iShrinkY * l_fCellHeight);
+
+	m_CreateBorderline();
 }

@@ -78,4 +78,11 @@ void Player::m_Movement()
 	// End of moving view.
 }
 
+sf::Vector2f Player::m_GetPlayerPosition()
+{
+	std::cout << "(" << m_PlayerBody.getPosition().x << ", " << m_PlayerBody.getPosition().y << ")" << std::endl;
+
+	return m_PlayerBody.getPosition();
+}
+
 

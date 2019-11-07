@@ -141,12 +141,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\Cell.h" />
+    <ClInclude Include="inc\CollisionDetection\BoxCollision.h" />
     <ClInclude Include="inc\EventHandler.h" />
     <ClInclude Include="inc\GameLoop.h" />
     <ClInclude Include="inc\GameView.h" />
     <ClInclude Include="inc\GameWindow.h" />
     <ClInclude Include="inc\Grid.h" />
     <ClInclude Include="inc\Player.h" />
+    <ClInclude Include="inc\CollisionDetection\PointLineCollision.h" />
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp" />
     <ClInclude Include="inc\PUGIXML\pugixml.hpp" />
     <ClInclude Include="inc\SFML\Audio.hpp" />

@@ -30,6 +30,7 @@ void GameLoop::m_RunGame()
 	Grid l_NewGrid; 
 
 	l_NewGrid.m_CreateGrid(10, 5); 
+	l_NewGrid.m_CreateBorderline();
 
 	Player l_NewPlayer; 
 
@@ -48,6 +49,7 @@ void GameLoop::m_RunGame()
 		l_NewPlayer.m_SetCurrentWindow(l_ptrWindow->m_GetWindow());
 
 		l_NewGrid.m_UpdateGrid(); 
+		l_NewGrid.m_CheckForCollision(l_NewPlayer.m_GetPlayerPosition());
 
 		// End of Update
 

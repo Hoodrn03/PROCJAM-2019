@@ -764,6 +764,12 @@
     <ClInclude Include="inc\GameView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\CollisionDetection\PointLineCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CollisionDetection\BoxCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\SFML\Audio\SoundFileFactory.inl">
