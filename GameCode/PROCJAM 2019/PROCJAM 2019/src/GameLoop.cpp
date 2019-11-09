@@ -31,6 +31,7 @@ void GameLoop::m_RunGame()
 
 	l_NewGrid.m_CreateGrid(15, 15);
 	l_NewGrid.m_CreateRoad();
+	l_NewGrid.m_CreateGrass();
 
 	Player l_NewPlayer; 
 

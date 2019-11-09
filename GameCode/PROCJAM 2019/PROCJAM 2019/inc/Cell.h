@@ -61,5 +61,7 @@ public:
 
 	void m_SetTile(int tileNumber);
 
+	void m_SetTile(Tile newTile);
+
 	Tile m_GetTile(); 
 };

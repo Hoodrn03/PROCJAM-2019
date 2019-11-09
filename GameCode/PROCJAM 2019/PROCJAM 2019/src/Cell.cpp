@@ -84,6 +84,27 @@ void Cell::m_SetTile(int tileNumber)
 	}
 }
 
+void Cell::m_SetTile(Tile newTile)
+{
+	m_CurrentTile = newTile;
+
+	switch (newTile)
+	{
+	case Tile::road:
+		m_CellBody.setFillColor(sf::Color(155, 118, 83));
+		break;
+	case Tile::mountain:
+		m_CellBody.setFillColor(sf::Color::Red);
+		break;
+	case Tile::grass:
+		m_CellBody.setFillColor(sf::Color(96, 128, 56));
+		break;
+	default:
+		
+		break;
+	}
+}
+
 Tile Cell::m_GetTile()
 {
 	return m_CurrentTile;

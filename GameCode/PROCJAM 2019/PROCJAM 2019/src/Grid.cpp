@@ -395,7 +395,7 @@ gridPos Grid::m_FindCellGridPos(Cell* cellToCheck)
 
 void Grid::m_CreateRoad()
 {
-	v_Grid[m_GererateInt(0, v_Grid.size())][m_GererateInt(0, v_Grid[0].size())].m_SetTile(1);
+	v_Grid[m_GererateInt(0, v_Grid.size())][m_GererateInt(0, v_Grid[0].size())].m_SetTile(Tile::road);
 
 	for (int i = 0; i < (int)v_Grid.size(); i++)
 	{
@@ -482,7 +482,7 @@ void Grid::m_CreateRoad()
 						{
 							l_FocusCell = &v_Grid[l_ThisPos.x][l_ThisPos.y - 1];	// Up
 
-							l_FocusCell->m_SetTile(1);
+							l_FocusCell->m_SetTile(Tile::road);
 						}
 						else
 						{
@@ -496,7 +496,7 @@ void Grid::m_CreateRoad()
 						{
 							l_FocusCell = &v_Grid[l_ThisPos.x][l_ThisPos.y + 1];	// Down 
 
-							l_FocusCell->m_SetTile(1);
+							l_FocusCell->m_SetTile(Tile::road);
 						}
 						else
 						{
@@ -509,7 +509,7 @@ void Grid::m_CreateRoad()
 						{
 							l_FocusCell = &v_Grid[l_ThisPos.x - 1][l_ThisPos.y];	// Left
 
-							l_FocusCell->m_SetTile(1);
+							l_FocusCell->m_SetTile(Tile::road);
 						}
 						else
 						{
@@ -522,7 +522,7 @@ void Grid::m_CreateRoad()
 						{
 							l_FocusCell = &v_Grid[l_ThisPos.x + 1][l_ThisPos.y];	// Right
 
-							l_FocusCell->m_SetTile(1);
+							l_FocusCell->m_SetTile(Tile::road);
 						}
 						else
 						{
@@ -545,6 +545,20 @@ void Grid::m_CreateRoad()
 					i = 100, j = 100;
 					break;
 				}
+			}
+		}
+	}
+}
+
+void Grid::m_CreateGrass()
+{
+	for (int i = 0; i < (int)v_Grid.size(); i++)
+	{
+		for (int j = 0; j < (int)v_Grid[i].size(); j++)
+		{
+			if (v_Grid[i][j].m_GetTile() == Tile::null)
+			{
+				v_Grid[i][j].m_SetTile(Tile::grass);
 			}
 		}
 	}
