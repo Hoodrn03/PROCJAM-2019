@@ -151,6 +151,7 @@
     <ClInclude Include="inc\CollisionDetection\PointLineCollision.h" />
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp" />
     <ClInclude Include="inc\PUGIXML\pugixml.hpp" />
+    <ClInclude Include="inc\Random\RandomGenerator.h" />
     <ClInclude Include="inc\SFML\Audio.hpp" />
     <ClInclude Include="inc\SFML\Audio\AlResource.hpp" />
     <ClInclude Include="inc\SFML\Audio\Export.hpp" />

@@ -61,6 +61,9 @@ public:
 	/*! \fn ClearWindow : Used to clear the game window. */
 	void m_ClearWindow();
 
+	/*! \fn ClearWindow : Used to clear the game window. */
+	void m_ClearWindow(sf::Color clearColour);
+
 	/*! \fn DisplayWindow : USed to display all of the elements onto the game window. */
 	void m_DisplayWindow(); 
 };

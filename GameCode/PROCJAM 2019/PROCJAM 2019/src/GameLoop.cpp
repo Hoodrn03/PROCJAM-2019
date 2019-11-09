@@ -29,12 +29,14 @@ void GameLoop::m_RunGame()
 
 	Grid l_NewGrid; 
 
-	l_NewGrid.m_CreateGrid(10, 5); 
-	l_NewGrid.m_CreateBorderline();
+	l_NewGrid.m_CreateGrid(15, 15);
+	l_NewGrid.m_CreateRoad();
 
 	Player l_NewPlayer; 
 
 	l_NewPlayer.m_CreateView(800, 800);
+
+	l_NewPlayer.m_SetPlayerStartingPos(l_NewGrid.m_GetBorderlineCenter());
 	
 
 	// Setup
@@ -65,7 +67,7 @@ void GameLoop::m_RunGame()
 
 		// Beginning of drawing
 
-		l_NewGrid.m_DrawGrid(l_ptrWindow->m_GetWindow());
+		l_NewGrid.m_DrawGrid(l_ptrWindow->m_GetWindow(), l_NewPlayer.m_GetView());
 
 		l_NewPlayer.m_DrawPlayer(l_ptrWindow->m_GetWindow());
 

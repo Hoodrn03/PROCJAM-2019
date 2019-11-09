@@ -47,4 +47,9 @@ public:
 	*/
 	void m_SetCurrentWindow(sf::RenderWindow& window);
 
+	sf::Vector2f m_GetUpperBounds();
+
+	sf::Vector2f m_GetLowerBounds(); 
+
+	sf::View& m_GetView(); 
 };

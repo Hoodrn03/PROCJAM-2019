@@ -37,3 +37,26 @@ void GameView::m_SetCurrentWindow(sf::RenderWindow& window)
 {
 	window.setView(m_ThisView);
 }
+
+sf::Vector2f GameView::m_GetUpperBounds()
+{
+	sf::Vector2f l_ReturnVector; 
+
+	l_ReturnVector = sf::Vector2f(m_ThisView.getCenter().x - (m_ThisView.getSize().x * 0.5f), m_ThisView.getCenter().y - (m_ThisView.getSize().y * 0.5f));
+
+	return l_ReturnVector;
+}
+
+sf::Vector2f GameView::m_GetLowerBounds()
+{
+	sf::Vector2f l_ReturnVector;
+
+	l_ReturnVector = sf::Vector2f(m_ThisView.getCenter().x + (m_ThisView.getSize().x * 0.5f), m_ThisView.getCenter().y + (m_ThisView.getSize().y * 0.5f));
+
+	return l_ReturnVector;
+}
+
+sf::View& GameView::m_GetView()
+{
+	return m_ThisView; 
+}

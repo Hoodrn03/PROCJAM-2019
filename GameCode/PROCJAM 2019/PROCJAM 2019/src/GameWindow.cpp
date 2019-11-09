@@ -104,6 +104,11 @@ void GameWindow::m_ClearWindow()
 	m_RenderWindow.clear();
 }
 
+void GameWindow::m_ClearWindow(sf::Color clearColour)
+{
+	m_RenderWindow.clear(clearColour);
+}
+
 /*! \fn DisplayWindow : Used to display all of the elements onto the game window. */
 void GameWindow::m_DisplayWindow()
 {
