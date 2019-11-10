@@ -4,10 +4,7 @@ Player::Player()
 {
 	// Create Player's sprite.
 
-	m_PlayerBody.setRadius(15.f);
-
-	m_PlayerBody.setOrigin(m_PlayerBody.getPosition().x + (m_PlayerBody.getGlobalBounds().width / 2),
-		m_PlayerBody.getPosition().y + (m_PlayerBody.getGlobalBounds().height / 2));
+	m_PlayerBody.setSize(sf::Vector2f(15.f, 15.f));
 
 	m_PlayerBody.setPosition(400, 400); 
 
@@ -36,16 +33,85 @@ void Player::m_Update()
 	m_Movement();
 }
 
+void Player::m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile)
+{
+
+	if (currentCellBounds.intersects(m_PlayerBody.getGlobalBounds()))
+	{
+		if (passableTile == false)
+		{
+			// Check left
+
+			if (currentCellBounds.left < m_PlayerBody.getPosition().x)
+			{
+				m_bNoLeftMove = true; 
+
+				// std::cout << "Touching A" << std::endl;
+			}
+
+			// Check up
+
+			if (currentCellBounds.top < m_PlayerBody.getPosition().y)
+			{
+				m_bNoUpMove = true;
+
+				// std::cout << "Touching W" << std::endl;
+			}
+		}
+		else
+		{
+			m_bNoUpMove = false;
+			m_bNoLeftMove = false;
+		}
+		
+	}
+
+}
+
+void Player::m_CheckMovementDirectionTwo(sf::FloatRect currentCellBounds, bool passableTile)
+{
+	if (currentCellBounds.intersects(m_PlayerBody.getGlobalBounds()))
+	{
+		if (passableTile == false)
+		{
+			// Check right
+
+			// std::cout << "cell bounds : " << currentCellBounds.left << " Player Bounds " << m_PlayerBody.getPosition().x + m_PlayerBody.getSize().x << std::endl;
+
+			if (currentCellBounds.left > m_PlayerBody.getPosition().x + 5)
+			{
+				m_bNoRightMove = true;
+
+				// td::cout << "Touching D" << std::endl;
+			}
+
+			// Check down
+
+			if (currentCellBounds.top > m_PlayerBody.getPosition().y + 5)
+			{
+				m_bNoDownMove = true;
+
+				// std::cout << "Touching S" << std::endl;
+			}
+		}
+		else
+		{
+			m_bNoRightMove = false;
+			m_bNoDownMove = false;
+		}
+	}
+}
+
 /*! \fn Movement Used to handle the movement of the player character. */
 void Player::m_Movement()
 {
 	// Move Player. 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_bNoUpMove == false)
 	{
 		m_MovementVector.y = -m_fSpeed;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && m_bNoDownMove == false)
 	{
 		m_MovementVector.y = m_fSpeed;
 	}
@@ -54,11 +120,11 @@ void Player::m_Movement()
 		m_MovementVector.y = 0;
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_bNoLeftMove == false)
 	{
 		m_MovementVector.x = -m_fSpeed;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && m_bNoRightMove == false)
 	{
 		m_MovementVector.x = m_fSpeed;
 	}
@@ -88,6 +154,11 @@ sf::Vector2f Player::m_GetPlayerPosition()
 	// std::cout << "(" << m_PlayerBody.getPosition().x << ", " << m_PlayerBody.getPosition().y << ")" << std::endl;
 
 	return m_PlayerBody.getPosition();
+}
+
+sf::Vector2f Player::m_GetPlayerSize()
+{
+	return m_PlayerBody.getSize();;
 }
 
 

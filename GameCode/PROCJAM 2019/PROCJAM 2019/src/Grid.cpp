@@ -168,6 +168,8 @@ void Grid::m_CheckForCollision(sf::Vector2f playerPos)
 		m_CheckCellPositions(); 
 
 		m_SetTopAndBottom();
+
+		m_bPlayerOutside = true;
 	}
 }
 
@@ -416,6 +418,11 @@ void Grid::m_CheckCellPositions()
 	}
 }
 
+bool Grid::m_PlayerOutsideGrid()
+{
+	return false;
+}
+
 sf::Vector2f Grid::m_GetBorderlineCenter()
 {
 	sf::Vector2f l_Size(m_Borderline.getGlobalBounds().width, m_Borderline.getGlobalBounds().height);
@@ -446,6 +453,22 @@ gridPos Grid::m_FindCellGridPos(Cell* cellToCheck)
 Cell & Grid::m_FindCellWithPosition(gridPos cellPos)
 {
 	return v_Grid[cellPos.x][cellPos.y];
+}
+
+Cell& Grid::m_FindCellWithPosition(sf::Vector2f cellPos)
+{
+	for (unsigned int i = 0; i < v_Grid.size(); i++)
+	{
+		for (unsigned int j = 0; j < v_Grid[i].size(); j++)
+		{
+			if (v_Grid[i][j].m_GetCellBounds().contains(cellPos))
+			{
+				return v_Grid[i][j];
+			}
+		}
+	}
+
+	return *&Cell();
 }
 
 void Grid::m_CreateRoad()

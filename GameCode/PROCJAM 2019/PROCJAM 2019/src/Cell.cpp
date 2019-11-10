@@ -94,7 +94,7 @@ void Cell::m_SetTile(Tile newTile)
 		m_CellBody.setFillColor(sf::Color(155, 118, 83));
 		break;
 	case Tile::mountain:
-		m_CellBody.setFillColor(sf::Color::Red);
+		m_CellBody.setFillColor(sf::Color(121, 99, 66));
 		break;
 	case Tile::grass:
 		m_CellBody.setFillColor(sf::Color(96, 128, 56));
@@ -102,6 +102,23 @@ void Cell::m_SetTile(Tile newTile)
 	default:
 		
 		break;
+	}
+}
+
+sf::FloatRect Cell::m_GetCellBounds()
+{
+	return sf::FloatRect(m_CellBody.getPosition(), m_CellBody.getSize());
+}
+
+bool Cell::m_IsTilePassable()
+{
+	if (m_CurrentTile == Tile::mountain || m_CurrentTile == Tile::null)
+	{
+		return false;
+	}
+	else
+	{
+		return true; 
 	}
 }
 

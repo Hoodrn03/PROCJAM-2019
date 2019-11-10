@@ -61,11 +61,15 @@ public:
 
 	Tile m_GetTile(); 
 
+	sf::FloatRect m_GetCellBounds();
+
+	bool m_IsTilePassable(); 
+
 	void m_SetCellPosition(sf::Vector2f newPos);
 
 	void m_SetTile(int tileNumber);
 
 	void m_SetTile(Tile newTile);
 
-	sf::FloatRect m_GetCellBounds(); 
+	
 };

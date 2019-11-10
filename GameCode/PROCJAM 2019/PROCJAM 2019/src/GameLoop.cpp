@@ -49,8 +49,21 @@ void GameLoop::m_RunGame()
 		l_NewPlayer.m_Update(); 
 		l_NewPlayer.m_SetCurrentWindow(l_ptrWindow->m_GetWindow());
 
+		Cell* l_TempCell = &l_NewGrid.m_FindCellWithPosition(l_NewPlayer.m_GetPlayerPosition());
+
+		l_NewPlayer.m_CheckMovementDirectionOne(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
+
+		l_TempCell = &l_NewGrid.m_FindCellWithPosition(l_NewPlayer.m_GetPlayerPosition() + l_NewPlayer.m_GetPlayerSize());
+
+		l_NewPlayer.m_CheckMovementDirectionTwo(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
+
 		l_NewGrid.m_UpdateGrid(); 
 		l_NewGrid.m_CheckForCollision(l_NewPlayer.m_GetPlayerPosition());
+
+		if (l_NewGrid.m_PlayerOutsideGrid() == true)
+		{
+			l_NewPlayer.m_SetPlayerStartingPos(l_TempCell->m_GetCellPosition());
+		}
 
 		// End of Update
 

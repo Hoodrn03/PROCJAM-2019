@@ -45,6 +45,8 @@ private:
 
 	std::unique_ptr<Cell> m_LastCell;
 
+	bool m_bPlayerOutside = false;
+
 	// Member Functions 
 
 public:
@@ -73,6 +75,8 @@ public:
 
 	void m_CheckCellPositions(); 
 
+	bool m_PlayerOutsideGrid(); 
+
 	// Position Data 
 
 	sf::Vector2f m_GetBorderlineCenter(); 
@@ -80,6 +84,8 @@ public:
 	gridPos m_FindCellGridPos(Cell* cellToCheck);
 
 	Cell & m_FindCellWithPosition(gridPos cellPos);
+
+	Cell& m_FindCellWithPosition(sf::Vector2f cellPos);
 
 	// Map Generation
 
