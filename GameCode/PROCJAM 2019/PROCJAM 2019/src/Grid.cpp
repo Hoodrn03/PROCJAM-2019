@@ -550,6 +550,99 @@ void Grid::m_CreateRoad()
 	}
 }
 
+void Grid::m_CreateMountain()
+{
+	int l_iBaseMountainChance = 25, l_iMountainAdjacentBonus = 15; 
+
+	for (int i = 0; i < (int)v_Grid.size(); i++)
+	{
+		for (int j = 0; j < (int)v_Grid[i].size(); j++)
+		{
+			bool l_bMountainTilePresent = false;
+
+			// Check mountain Up
+
+			if (j - 1 > 0)
+			{
+				Tile l_CheckTile;
+
+				l_CheckTile = v_Grid[i][j - 1].m_GetTile();
+
+				if (l_CheckTile == Tile::mountain)
+				{
+					l_bMountainTilePresent = true;
+				}
+			}
+
+			// Check mountain Down
+
+			if (j + 1 < v_Grid.size())
+			{
+				Tile l_CheckTile;
+
+				l_CheckTile = v_Grid[i][j + 1].m_GetTile();
+
+				if (l_CheckTile == Tile::mountain)
+				{
+					l_bMountainTilePresent = true;
+				}
+			}
+
+			// Check mountain Left 
+
+			if (i - 1 > 0)
+			{
+				Tile l_CheckTile;
+
+				l_CheckTile = v_Grid[i - 1][j].m_GetTile();
+
+				if (l_CheckTile == Tile::mountain)
+				{
+					l_bMountainTilePresent = true;
+				}
+			}
+
+			// Check mountain Right
+
+			if (i + 1 < v_Grid[i].size())
+			{
+				Tile l_CheckTile;
+
+				l_CheckTile = v_Grid[i + 1][j].m_GetTile();
+
+				if (l_CheckTile == Tile::mountain)
+				{
+					l_bMountainTilePresent = true;
+				}
+			}
+
+			if (v_Grid[i][j].m_GetTile() == Tile::null)
+			{
+
+				// Place Mountain Tile
+
+				int l_iRand = m_GererateInt(1, 100);
+
+				if (l_bMountainTilePresent)
+				{
+					if (l_iRand <= l_iBaseMountainChance + l_iMountainAdjacentBonus)
+					{
+						v_Grid[i][j].m_SetTile(Tile::mountain);
+					}
+				}
+				else
+				{
+					if (l_iRand <= l_iBaseMountainChance)
+					{
+						v_Grid[i][j].m_SetTile(Tile::mountain);
+					}
+				}
+			}
+
+		}
+	}
+}
+
 void Grid::m_CreateGrass()
 {
 	for (int i = 0; i < (int)v_Grid.size(); i++)
