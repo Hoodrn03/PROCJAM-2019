@@ -48,6 +48,9 @@ void Grid::m_CreateGrid(unsigned int rows, unsigned int columns)
 
 	m_SetTopAndBottom();
 
+	m_CreateRoad();
+	m_CreateMountain();
+	m_CreateGrass();
 }
 
 void Grid::m_CreateGrid(unsigned int rows, unsigned int columns, sf::Vector2f startingPos)
@@ -83,6 +86,9 @@ void Grid::m_CreateGrid(unsigned int rows, unsigned int columns, sf::Vector2f st
 
 	m_SetTopAndBottom();
 
+	m_CreateRoad();
+	m_CreateMountain();
+	m_CreateGrass(); 
 }
 
 void Grid::m_CreateBorderline()
@@ -153,9 +159,16 @@ void Grid::m_CheckForCollision(sf::Vector2f playerPos)
 	{
 		m_iAddCellDirection = l_iResult;
 
-		std::cout << "Outside " << l_iResult << std::endl;
+		// std::cout << "Outside " << l_iResult << std::endl;
 	}
 
+	if (m_InsideBox(m_Borderline.getPosition().x, m_Borderline.getPosition().y, m_Borderline.getGlobalBounds().width, m_Borderline.getGlobalBounds().height,
+		playerPos.x, playerPos.y) == false)
+	{
+		m_CheckCellPositions(); 
+
+		m_SetTopAndBottom();
+	}
 }
 
 /*! \fn DrawGrid This will draw the grid into the game world.
@@ -204,7 +217,7 @@ void Grid::m_DrawGrid(sf::RenderWindow& window, sf::View &view)
 
 void Grid::m_AddCellsUp()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4; 
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2; 
 
 	l_iRowsToAdd = v_Grid.size(); 
 
@@ -230,6 +243,10 @@ void Grid::m_AddCellsUp()
 
 			 Cell l_TempCell(sf::Vector2f(l_fStartingX, l_fYoffset));
 
+			 gridPos l_GridPosToCheck{ i, 0 };
+
+			 l_TempCell.m_SetTile(m_GetTileToGenerate(l_GridPosToCheck));
+
 			 v_Grid[i].push_front(l_TempCell); 
 		}
 
@@ -242,7 +259,7 @@ void Grid::m_AddCellsUp()
 
 void Grid::m_AddCellsDown()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
 
 	l_iRowsToAdd = v_Grid.size();
 
@@ -270,6 +287,10 @@ void Grid::m_AddCellsDown()
 
 			Cell l_TempCell(sf::Vector2f(l_fStartingX, l_fYoffset));
 
+			gridPos l_GridPosToCheck{ i, v_Grid[i].size() - 1 };
+
+			l_TempCell.m_SetTile(m_GetTileToGenerate(l_GridPosToCheck));
+
 			v_Grid[i].push_back(l_TempCell);
 		}
 
@@ -281,7 +302,7 @@ void Grid::m_AddCellsDown()
 
 void Grid::m_AddCellsLeft()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
 
 	l_iRowsToAdd = v_Grid[0].size();
 
@@ -307,6 +328,10 @@ void Grid::m_AddCellsLeft()
 		{
 			Cell l_TempCell(sf::Vector2f(l_fXoffset, l_fYoffset));
 
+			gridPos l_GridPosToCheck{ 0, j };
+
+			l_TempCell.m_SetTile(m_GetTileToGenerate(l_GridPosToCheck));
+
 			l_TempGrid.push_back(l_TempCell);
 
 			l_fYoffset += l_fCellHeight;
@@ -325,7 +350,7 @@ void Grid::m_AddCellsLeft()
 
 void Grid::m_AddCellsRight()
 {
-	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 4;
+	unsigned int l_iRowsToAdd, l_iCollumnsToAdd = 2;
 
 	l_iRowsToAdd = v_Grid[0].size();
 
@@ -351,6 +376,10 @@ void Grid::m_AddCellsRight()
 		{
 			Cell l_TempCell(sf::Vector2f(l_fXoffset, l_fYoffset));
 
+			gridPos l_GridPosToCheck{ v_Grid.size() - 1, j };
+
+			l_TempCell.m_SetTile(m_GetTileToGenerate(l_GridPosToCheck));
+
 			l_TempGrid.push_back(l_TempCell);
 
 			l_fYoffset += l_fCellHeight;
@@ -364,6 +393,27 @@ void Grid::m_AddCellsRight()
 	}
 
 	m_SetTopAndBottom();
+}
+
+void Grid::m_CheckCellPositions()
+{
+	sf::Vector2f m_StartingPos = v_Grid[0][0].m_GetCellPosition() - sf::Vector2f(50, 50); 
+
+	float l_fXOffset = 0, l_fYOffset = 0;
+
+	for (unsigned int i = 0; i < v_Grid.size(); i++)
+	{
+		for (unsigned int j = 0; j < v_Grid[i].size(); j++)
+		{
+			v_Grid[i][j].m_SetCellPosition(m_StartingPos + sf::Vector2f(l_fXOffset, l_fYOffset));
+
+			l_fYOffset += v_Grid[0][0].m_CellSize.y;
+		}
+
+		l_fYOffset = 0;
+
+		l_fXOffset += v_Grid[0][0].m_CellSize.x; 
+	}
 }
 
 sf::Vector2f Grid::m_GetBorderlineCenter()
@@ -391,6 +441,11 @@ gridPos Grid::m_FindCellGridPos(Cell* cellToCheck)
 		}
 	}
 	return gridPos();
+}
+
+Cell & Grid::m_FindCellWithPosition(gridPos cellPos)
+{
+	return v_Grid[cellPos.x][cellPos.y];
 }
 
 void Grid::m_CreateRoad()
@@ -655,5 +710,44 @@ void Grid::m_CreateGrass()
 			}
 		}
 	}
+}
+
+Tile Grid::m_GetTileToGenerate(gridPos currentGridPosition)
+{
+	Tile l_TileToPlace = Tile::null; 
+
+	Cell l_CellToCheck = m_FindCellWithPosition(currentGridPosition); 
+
+	if (l_CellToCheck.m_GetTile() == Tile::road)
+	{
+		if (m_GererateInt(1, 100) <= 75)
+		{
+			l_TileToPlace = Tile::road;
+
+			return l_TileToPlace; 
+		}
+	}
+	else if (l_CellToCheck.m_GetTile() == Tile::mountain)
+	{
+		if (m_GererateInt(1, 100) <= 50)
+		{
+			l_TileToPlace = Tile::mountain;
+
+			return l_TileToPlace;
+		}
+	}
+	else if (l_CellToCheck.m_GetTile() == Tile::grass)
+	{
+		if (m_GererateInt(1, 100) <= 20)
+		{
+			l_TileToPlace = Tile::mountain;
+
+			return l_TileToPlace;
+		}
+	}
+
+	l_TileToPlace = Tile::grass;
+
+	return l_TileToPlace;
 }
 

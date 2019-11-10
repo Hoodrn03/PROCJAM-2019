@@ -109,3 +109,8 @@ Tile Cell::m_GetTile()
 {
 	return m_CurrentTile;
 }
+
+void Cell::m_SetCellPosition(sf::Vector2f newPos)
+{
+	m_CellBody.setPosition(newPos);
+}

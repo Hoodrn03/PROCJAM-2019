@@ -30,13 +30,10 @@ void GameLoop::m_RunGame()
 	Grid l_NewGrid; 
 
 	l_NewGrid.m_CreateGrid(15, 15);
-	l_NewGrid.m_CreateRoad();
-	l_NewGrid.m_CreateMountain();
-	l_NewGrid.m_CreateGrass();
 
 	Player l_NewPlayer; 
 
-	l_NewPlayer.m_CreateView(800, 800);
+	l_NewPlayer.m_CreateView(200, 200);
 
 	l_NewPlayer.m_SetPlayerStartingPos(l_NewGrid.m_GetBorderlineCenter());
 	
@@ -65,7 +62,7 @@ void GameLoop::m_RunGame()
 
 		// Clear Window 
 
-		l_ptrWindow->m_ClearWindow();
+		l_ptrWindow->m_ClearWindow(sf::Color::Blue);
 
 		// Beginning of drawing
 

@@ -59,9 +59,13 @@ public:
 	/*! \fn GetCellPosition This will return the current position of the cell. */
 	sf::Vector2f m_GetCellPosition(); 
 
+	Tile m_GetTile(); 
+
+	void m_SetCellPosition(sf::Vector2f newPos);
+
 	void m_SetTile(int tileNumber);
 
 	void m_SetTile(Tile newTile);
 
-	Tile m_GetTile(); 
+	sf::FloatRect m_GetCellBounds(); 
 };

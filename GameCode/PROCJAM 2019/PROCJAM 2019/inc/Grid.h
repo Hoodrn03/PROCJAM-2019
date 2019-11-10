@@ -71,11 +71,15 @@ public:
 
 	void m_AddCellsRight();
 
+	void m_CheckCellPositions(); 
+
 	// Position Data 
 
 	sf::Vector2f m_GetBorderlineCenter(); 
 
 	gridPos m_FindCellGridPos(Cell* cellToCheck);
+
+	Cell & m_FindCellWithPosition(gridPos cellPos);
 
 	// Map Generation
 
@@ -84,6 +88,8 @@ public:
 	void m_CreateMountain();
 
 	void m_CreateGrass(); 
+
+	Tile m_GetTileToGenerate(gridPos currentGridPosition); 
 
 	// Update
 
