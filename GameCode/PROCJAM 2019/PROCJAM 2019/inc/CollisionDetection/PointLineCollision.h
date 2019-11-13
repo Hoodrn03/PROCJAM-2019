@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+/*! \class PointLineCollision : Used to check if a point is on a line between two points. */
 class PointLineCollision
 {
 	// Constructor 
@@ -28,6 +29,13 @@ private:
 
 public:
 
+	/*! \fn LineCollision : This will take the line constructed by two points and check if a third pair of coordinates is on that line. 
+	param one : float : The X for the first point on the line.
+	param two : float : The Y for the first point on the line.
+	param three : float : The X for the second point on the line. 
+	param four : float : The Y for the second point on the line. 
+	param five : float : The X for the point to check. 
+	param six : float : The Y for the point to check. */
 	bool m_LineCollision(float x1, float y1, float x2, float y2, float px, float py)
 	{
 
@@ -51,6 +59,12 @@ public:
 
 	}
 
+	/*! \fn Dist : Used to calculate the distance between two coords. 
+	param one : float : The X for the first point.
+	param two : float : The Y for the first point.
+	param three : float : The X for the second point.
+	param four : float : The Y for the second.
+	*/
 	float m_Dist(float x1, float y1, float x2, float y2)
 	{
 

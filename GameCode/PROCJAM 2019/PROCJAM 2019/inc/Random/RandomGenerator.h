@@ -4,6 +4,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+/*! \class RandomGenerator : Used to generate random items. */
 class RandomGenerator
 {
 	// Constructor 
@@ -12,7 +13,9 @@ public:
 
 	RandomGenerator()
 	{
-		srand(time(NULL));
+		// Sets a new seed for the random generator, allows for truely random numbers.
+
+		srand(time(NULL)); 
 	}
 
 	// Deconstructor
@@ -30,6 +33,10 @@ private:
 
 public:
 
+	/*! \fn GenerateInt : Used to output an integer value between a min and a max. 
+	param one : int : The minimun number the generator can output. 
+	param two : int : The maximum number the generator can output. 
+	*/
 	int m_GererateInt(int min, int max)
 	{
 		int l_Random = rand() % max + min;

@@ -1,5 +1,7 @@
 #pragma once
 
+/*! \class BoxCollision This will be used to detect if a box contains a point as well as 
+			using AABB to detect collisions. */
 class BoxCollision
 {
 	// Constructor 
@@ -26,6 +28,14 @@ private:
 
 public:
 
+	/*! \fn InsideBox - Used to check if a point is within a box. 
+	param one : float : The left side of the box.
+	param two : float : the top of the box.
+	param three : float : The width of the box. 
+	param four : float : The height of the box. 
+	param five : float : The X position to check. 
+	param six : float : The Y position to check. 
+	*/
 	bool m_InsideBox(float boxX, float boxY, float boxWidth, float boxHeight, float px, float py)
 	{
 
@@ -37,6 +47,14 @@ public:
 		return false; 
 	}
 
+	/*! \fn ExitBox - This will output the direction the point has left the box from, (1 - top, 2 - bottom, 3 - left, 4 - right).
+	param one : float : The left side of the box.
+	param two : float : the top of the box.
+	param three : float : The width of the box.
+	param four : float : The height of the box.
+	param five : float : The X position to check.
+	param six : float : The Y position to check.
+	*/
 	int m_ExitBox(float boxX, float boxY, float boxWidth, float boxHeight, float px, float py)
 	{
 		float l_fCollBuffer = 15.f;

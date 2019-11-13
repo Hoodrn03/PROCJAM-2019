@@ -1,13 +1,20 @@
 #include "Attack.h"
 
+//					File Start						\\
+
+// Constructor 
 Attack::Attack()
 {
 }
 
+// Deconstructor
 Attack::~Attack()
 {
 }
 
+/*! \fn CreateAttackBody : Used to initalize the attck object.
+param one : vector2f : The position to spawn the attack.
+*/
 void Attack::m_CreateAttackBody(sf::Vector2f newPos)
 {
 	m_AttackBody.reset(new sf::RectangleShape());
@@ -19,6 +26,10 @@ void Attack::m_CreateAttackBody(sf::Vector2f newPos)
 	m_AttackBody->setPosition(newPos); 
 }
 
+/*! \fn CreateAttackBody (overload one): Used to initalize the attck object.
+param one : vector2f : The position to spawn the attack.
+param two : float : the rotation for the attack object.
+*/
 void Attack::m_CreateAttackBody(sf::Vector2f newPos, float rotataion)
 {
 	m_AttackBody.reset(new sf::RectangleShape());
@@ -32,6 +43,9 @@ void Attack::m_CreateAttackBody(sf::Vector2f newPos, float rotataion)
 	m_AttackBody->setRotation(rotataion);
 }
 
+/*! \fn DrawAttackBody : Used to display the attack on the screen.
+param one : renderwindow : The main game window.
+*/
 void Attack::m_DrawAttackBody(sf::RenderWindow & window)
 {
 	if (m_AttackBody.get() != nullptr)
@@ -40,6 +54,9 @@ void Attack::m_DrawAttackBody(sf::RenderWindow & window)
 	}
 }
 
+/*! \fn UpdatePos : Used to move the attack body to a new position
+param one : vector2f : the new position for the sprite.
+*/
 void Attack::m_UpdatePos(sf::Vector2f newPos)
 {
 	if (m_AttackBody.get() != nullptr)
@@ -48,11 +65,15 @@ void Attack::m_UpdatePos(sf::Vector2f newPos)
 	}
 }
 
+/*! \fn DestroyAttackBody : Used to destroy the current attack object in the game. */
 void Attack::m_DestroyAttackBody()
 {
 	m_AttackBody.reset(new sf::RectangleShape());
 }
 
+/*! \fn HitDetection : Used to check if a given point is inside the attack body.
+param one : vector2f : the coord for the object to check.
+*/
 bool Attack::m_HitDetection(sf::Vector2f pointToCheck)
 {
 	if (m_AttackBody->getGlobalBounds().contains(pointToCheck))
@@ -63,6 +84,7 @@ bool Attack::m_HitDetection(sf::Vector2f pointToCheck)
 	return false;
 }
 
+/*! \fn ThisExists : Used to check if there is currently an attack body in the game. */
 bool Attack::m_ThisExists()
 {
 	if (m_AttackBody.get() != nullptr)
@@ -72,3 +94,5 @@ bool Attack::m_ThisExists()
 
 	return false;
 }
+
+//					File End						\\
