@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="inc\PUGIXML\pugixml.cpp" />
+    <ClCompile Include="src\Attack.cpp" />
     <ClCompile Include="src\Cell.cpp" />
     <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Attack.h" />
     <ClInclude Include="inc\Cell.h" />
     <ClInclude Include="inc\CollisionDetection\BoxCollision.h" />
     <ClInclude Include="inc\EventHandler.h" />

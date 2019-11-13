@@ -11,13 +11,13 @@ GameLoop::~GameLoop()
 /*! \ fn RunGame : Used to begin the game loop*/
 void GameLoop::m_RunGame()
 {
+	// begin Setup
+
 	// Window init. 
 
-	std::unique_ptr<GameWindow> l_ptrWindow;
+	m_ptrWindow.reset(new GameWindow());
 
-	l_ptrWindow.reset(new GameWindow());
-
-	l_ptrWindow->m_CreateWindow(800, 800, "PROCJAM 2019", 120);
+	m_ptrWindow->m_CreateWindow(800, 800, "PROCJAM 2019", 120);
 
 	// Init Event Handler
 
@@ -25,70 +25,93 @@ void GameLoop::m_RunGame()
 
 	l_ptrEventHandler.reset(new EventHandler());
 
-	// Test Items. 
+	// Init Grid
 
-	Grid l_NewGrid; 
+	m_ThisGrid.reset(new Grid());
 
-	l_NewGrid.m_CreateGrid(15, 15);
+	m_ThisGrid->m_CreateGrid(15, 15);
 
-	Player l_NewPlayer; 
+	// Init Player
 
-	l_NewPlayer.m_CreateView(200, 200);
+	m_ThisPlayer.reset(new Player());
 
-	l_NewPlayer.m_SetPlayerStartingPos(l_NewGrid.m_GetBorderlineCenter());
+	m_ThisPlayer->m_CreateView(200, 200);
+
+	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetBorderlineCenter());
 	
+	// Init Enemies
 
-	// Setup
+	// Test Items 
 
-	while (l_ptrWindow->m_GetWindow().isOpen())
+	Attack l_NewAttack; 
+
+	// End of Setup
+
+	std::thread l_First([this] { this->m_Update(); });
+
+	while (m_ptrWindow->m_GetWindow().isOpen())
 	{
 		// Begin of loop 
 
 		// Update Items
 
-		l_NewPlayer.m_Update(); 
-		l_NewPlayer.m_SetCurrentWindow(l_ptrWindow->m_GetWindow());
+		m_ThisPlayer->m_Update();
+		m_ThisPlayer->m_SetCurrentWindow(m_ptrWindow->m_GetWindow());
 
-		Cell* l_TempCell = &l_NewGrid.m_FindCellWithPosition(l_NewPlayer.m_GetPlayerPosition());
-
-		l_NewPlayer.m_CheckMovementDirectionOne(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
-
-		l_TempCell = &l_NewGrid.m_FindCellWithPosition(l_NewPlayer.m_GetPlayerPosition() + l_NewPlayer.m_GetPlayerSize());
-
-		l_NewPlayer.m_CheckMovementDirectionTwo(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
-
-		l_NewGrid.m_UpdateGrid(); 
-		l_NewGrid.m_CheckForCollision(l_NewPlayer.m_GetPlayerPosition());
-
-		if (l_NewGrid.m_PlayerOutsideGrid() == true)
-		{
-			l_NewPlayer.m_SetPlayerStartingPos(l_TempCell->m_GetCellPosition());
-		}
+		// l_NewAttack.m_CreateAttackBody(m_ThisPlayer->m_GetPlayerPosition()); 
 
 		// End of Update
 
 		// Handle Events 
 
-		l_ptrEventHandler->m_HandleEvents(l_ptrWindow->m_GetWindow());
+		l_ptrEventHandler->m_HandleEvents(m_ptrWindow->m_GetWindow());
 
 		// End of Events
 
 		// Clear Window 
 
-		l_ptrWindow->m_ClearWindow(sf::Color::Blue);
+		m_ptrWindow->m_ClearWindow(sf::Color::Blue);
 
 		// Beginning of drawing
 
-		l_NewGrid.m_DrawGrid(l_ptrWindow->m_GetWindow(), l_NewPlayer.m_GetView());
+		m_ThisGrid->m_DrawGrid(m_ptrWindow->m_GetWindow(), m_ThisPlayer->m_GetView());
 
-		l_NewPlayer.m_DrawPlayer(l_ptrWindow->m_GetWindow());
+		m_ThisPlayer->m_DrawPlayer(m_ptrWindow->m_GetWindow());
+
+		l_NewAttack.m_DrawAttackBody(m_ptrWindow->m_GetWindow());
 
 		// End of drawing
 
-		l_ptrWindow->m_DisplayWindow();
+		m_ptrWindow->m_DisplayWindow();
 
 		// Display Window 
 
 		// End of loop 
+	}
+
+	l_First.join();
+}
+
+void GameLoop::m_Update()
+{
+	while (m_ptrWindow->m_GetWindow().isOpen())
+	{
+		// std::cout << " Update " << std::endl;
+
+		Cell* l_TempCell = &m_ThisGrid->m_FindCellWithPosition(m_ThisPlayer->m_GetPlayerPosition());
+
+		m_ThisPlayer->m_CheckMovementDirectionOne(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
+
+		l_TempCell = &m_ThisGrid->m_FindCellWithPosition(m_ThisPlayer->m_GetPlayerPosition() + m_ThisPlayer->m_GetPlayerSize());
+
+		m_ThisPlayer->m_CheckMovementDirectionTwo(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
+
+		m_ThisGrid->m_UpdateGrid();
+		m_ThisGrid->m_CheckForCollision(m_ThisPlayer->m_GetPlayerPosition());
+
+		if (m_ThisGrid->m_PlayerOutsideGrid() == true)
+		{
+			m_ThisPlayer->m_SetPlayerStartingPos(l_TempCell->m_GetCellPosition());
+		}
 	}
 }

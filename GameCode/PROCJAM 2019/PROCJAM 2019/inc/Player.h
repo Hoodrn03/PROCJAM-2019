@@ -7,6 +7,7 @@
 #include "GameView.h"
 
 #include "CollisionDetection/PointLineCollision.h"
+#include "Attack.h"
 
 /*! \class Used to create and manage a player character. 
 			Has a view attached to the player to act as a movable camera. 
@@ -30,6 +31,8 @@ private:
 	/*! \var The main body used to display the player. */
 	sf::RectangleShape m_PlayerBody;
 
+	// Moving 
+
 	/*! \var The direction vector the used to move the player. */
 	sf::Vector2f m_MovementVector;
 
@@ -38,6 +41,16 @@ private:
 
 	bool m_bNoLeftMove = false, m_bNoRightMove = false;
 	bool m_bNoUpMove = false, m_bNoDownMove = false;
+
+	// Attacking
+
+	Attack m_clAttack; 
+
+	bool m_bMoveUp = false, m_bMoveDown = false, m_bMoveRight = false, m_bMoveLeft = false;
+
+	sf::Clock m_AttackTimer; 
+
+	const float m_fAttackTimer = 0.5f;
 
 	// Member Functions 
 
@@ -57,6 +70,8 @@ public:
 
 	/*! \fn Movement Used to handle the movement of the player character. */
 	void m_Movement(); 
+
+	void m_Attack(); 
 
 	void m_SetPlayerStartingPos(sf::Vector2f newPos); 
 

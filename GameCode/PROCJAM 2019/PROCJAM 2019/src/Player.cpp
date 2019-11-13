@@ -23,6 +23,8 @@ param one: The game window to draw onto.
 void Player::m_DrawPlayer(sf::RenderWindow& window)
 {
 	window.draw(m_PlayerBody);
+
+	m_clAttack.m_DrawAttackBody(window);
 }
 
 /*! \fn Update Used to update the player once each loop. */
@@ -31,6 +33,8 @@ void Player::m_Update()
 	// Move Player; 
 
 	m_Movement();
+
+	m_Attack();
 }
 
 void Player::m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile)
@@ -110,27 +114,41 @@ void Player::m_Movement()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_bNoUpMove == false)
 	{
 		m_MovementVector.y = -m_fSpeed;
+
+		m_bMoveUp = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && m_bNoDownMove == false)
 	{
 		m_MovementVector.y = m_fSpeed;
+
+		m_bMoveDown = true;
 	}
 	else
 	{
 		m_MovementVector.y = 0;
+
+		m_bMoveUp = false;
+		m_bMoveDown = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_bNoLeftMove == false)
 	{
 		m_MovementVector.x = -m_fSpeed;
+
+		m_bMoveLeft = true;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && m_bNoRightMove == false)
 	{
 		m_MovementVector.x = m_fSpeed;
+
+		m_bMoveRight = true;
 	}
 	else
 	{
 		m_MovementVector.x = 0;
+
+		m_bMoveLeft = false;
+		m_bMoveRight = false;
 	}
 
 	m_PlayerBody.move(m_MovementVector);
@@ -142,6 +160,38 @@ void Player::m_Movement()
 	m_MoveView(m_PlayerBody.getPosition()); 
 
 	// End of moving view.
+}
+
+void Player::m_Attack()
+{
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if (m_bMoveUp)
+		{
+			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() - sf::Vector2f(0, 25));
+		}
+		else if (m_bMoveDown)
+		{
+			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() + sf::Vector2f(0, 50));
+		}
+		else if (m_bMoveLeft)
+		{
+			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() - sf::Vector2f(25, 0), 90);
+		}
+		else if (m_bMoveRight)
+		{
+			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() + sf::Vector2f(50, 0), 90);
+		}
+
+		std::cout << "Slash" << std::endl;
+	}
+	else
+	{
+		m_clAttack.m_DestroyAttackBody();
+	}
+
 }
 
 void Player::m_SetPlayerStartingPos(sf::Vector2f newPos)
