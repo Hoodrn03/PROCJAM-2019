@@ -2,7 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 
-/*! \enum Tile THis will be used to determine which tile this cell currently is. */
+/*! \enum Tile This will be used to determine which tile this cell currently is. */
 enum class Tile
 {
 	null = 0x001,		/*!< This is the base value for a Tile. */
@@ -51,35 +51,56 @@ public:
 
 public:
 
+	// Rendering 
+
 	/*! \fn DrawCell This will draw this cell into the game. 
 	param One: The window in which to draw this cell. 
 	*/
 	void m_DrawCell(sf::RenderWindow& window);
 
-	/*! \fn DrawCell This will draw this cell into the game.
+	/*! \fn DrawCell (overload one) This will draw this cell into the game.
 	param One: The window in which to draw this cell.
+	param Two: The top left of the current game view.
+	Param Three: The bottom right of the current game view. 
 	*/
 	void m_DrawCell(sf::RenderWindow& window, sf::Vector2f upperBounds, sf::Vector2f lowerBounds);
 
-	/*! \fn DrawCell This will draw this cell into the game.
+	/*! \fn DrawCell (overload two) This will draw this cell into the game.
 	param One: The window in which to draw this cell.
+	param Two: The view currenly used in the game. 
 	*/
 	void m_DrawCell(sf::RenderWindow& window, sf::View& view);
+
+	// Positioning
+
+
+	/*! \fn SetCellPosition This will move the cell to a new position
+	param One: The new position for the cell.
+	*/
+	void m_SetCellPosition(sf::Vector2f newPos);
 
 	/*! \fn GetCellPosition This will return the current position of the cell. */
 	sf::Vector2f m_GetCellPosition(); 
 
-	Tile m_GetTile(); 
-
+	/*! \fn GetCellBounds This will return a float rect construct of the current cell, contains top left as well as
+							bottom right. */
 	sf::FloatRect m_GetCellBounds();
 
-	bool m_IsTilePassable(); 
+	// Tile Assignemnt
 
-	void m_SetCellPosition(sf::Vector2f newPos);
-
+	/*! \fn SetTile This will assign a tile to the cell.
+	param One: an integer number associated with a tile.
+	*/
 	void m_SetTile(int tileNumber);
 
+	/*! \fn SetTile (overload one) This will assign a tile to the cell.
+	param One: The tile to assign to the cell.
+	*/
 	void m_SetTile(Tile newTile);
 
-	
+	/*! \fn GetTile This will return the curret tile type assigned to this cell. */
+	Tile m_GetTile(); 
+
+	/*! \fn IsTilePassabe Using the current tile of the cell it will check if the cell is passable by an entity. */
+	bool m_IsTilePassable(); 
 };

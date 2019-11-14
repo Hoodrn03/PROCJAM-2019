@@ -29,6 +29,8 @@ Cell::~Cell()
 {
 }
 
+// Rendering 
+
 /*! \fn DrawCell This will draw this cell into the game.
 param One: The window in which to draw this cell.
 */
@@ -37,6 +39,11 @@ void Cell::m_DrawCell(sf::RenderWindow& window)
 	window.draw(m_CellBody);
 }
 
+/*! \fn DrawCell (overload one) This will draw this cell into the game.
+param One: The window in which to draw this cell.
+param Two: The top left of the current game view.
+Param Three: The bottom right of the current game view.
+*/
 void Cell::m_DrawCell(sf::RenderWindow& window, sf::Vector2f upperBounds, sf::Vector2f lowerBounds)
 {
 	float l_fBuffer = 55.f; 
@@ -48,6 +55,10 @@ void Cell::m_DrawCell(sf::RenderWindow& window, sf::Vector2f upperBounds, sf::Ve
 	}
 }
 
+/*! \fn DrawCell (overload two) This will draw this cell into the game.
+param One: The window in which to draw this cell.
+param Two: The view currenly used in the game.
+*/
 void Cell::m_DrawCell(sf::RenderWindow& window, sf::View & view)
 {
 	sf::Vector2f l_ViewCenter(window.getView().getCenter());
@@ -62,11 +73,34 @@ void Cell::m_DrawCell(sf::RenderWindow& window, sf::View & view)
 
 }
 
+// Positioning 
+
+/*! \fn SetCellPosition This will move the cell to a new position
+param One: The new position for the cell.
+*/
+void Cell::m_SetCellPosition(sf::Vector2f newPos)
+{
+	m_CellBody.setPosition(newPos);
+}
+
+/*! \fn GetCellPosition This will return the current position of the cell. */
 sf::Vector2f Cell::m_GetCellPosition()
 {
 	return m_CellBody.getPosition();
 }
 
+/*! \fn GetCellBounds This will return a float rect construct of the current cell, contains top left as well as
+						bottom right. */
+sf::FloatRect Cell::m_GetCellBounds()
+{
+	return sf::FloatRect(m_CellBody.getPosition(), m_CellBody.getSize());
+}
+
+// Tile Assignment 
+
+/*! \fn SetTile This will assign a tile to the cell.
+param One: an integer number associated with a tile.
+*/
 void Cell::m_SetTile(int tileNumber)
 {
 	switch (tileNumber)
@@ -84,6 +118,9 @@ void Cell::m_SetTile(int tileNumber)
 	}
 }
 
+/*! \fn SetTile (overload one) This will assign a tile to the cell.
+param One: The tile to assign to the cell.
+*/
 void Cell::m_SetTile(Tile newTile)
 {
 	m_CurrentTile = newTile;
@@ -105,11 +142,13 @@ void Cell::m_SetTile(Tile newTile)
 	}
 }
 
-sf::FloatRect Cell::m_GetCellBounds()
+/*! \fn GetTile This will return the curret tile type assigned to this cell. */
+Tile Cell::m_GetTile()
 {
-	return sf::FloatRect(m_CellBody.getPosition(), m_CellBody.getSize());
+	return m_CurrentTile;
 }
 
+/*! \fn IsTilePassabe Using the current tile of the cell it will check if the cell is passable by an entity. */
 bool Cell::m_IsTilePassable()
 {
 	if (m_CurrentTile == Tile::mountain || m_CurrentTile == Tile::null)
@@ -120,14 +159,4 @@ bool Cell::m_IsTilePassable()
 	{
 		return true; 
 	}
-}
-
-Tile Cell::m_GetTile()
-{
-	return m_CurrentTile;
-}
-
-void Cell::m_SetCellPosition(sf::Vector2f newPos)
-{
-	m_CellBody.setPosition(newPos);
 }

@@ -4,6 +4,7 @@
 
 #include"SFML/Graphics.hpp"
 
+/*! \class EventHandler Usedto handle events which cannot be handled within the area they are used. */
 class EventHandler
 {
 	// Constructor 

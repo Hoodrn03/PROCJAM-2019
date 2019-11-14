@@ -58,8 +58,6 @@ void GameLoop::m_RunGame()
 		m_ThisPlayer->m_Update();
 		m_ThisPlayer->m_SetCurrentWindow(m_ptrWindow->m_GetWindow());
 
-		// l_NewAttack.m_CreateAttackBody(m_ThisPlayer->m_GetPlayerPosition()); 
-
 		// End of Update
 
 		// Handle Events 
@@ -92,6 +90,7 @@ void GameLoop::m_RunGame()
 	l_First.join();
 }
 
+/*! \fn Update : Used to split some of the other functionality into a second thread. */
 void GameLoop::m_Update()
 {
 	while (m_ptrWindow->m_GetWindow().isOpen())
