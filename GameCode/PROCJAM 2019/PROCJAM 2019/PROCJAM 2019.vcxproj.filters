@@ -45,6 +45,9 @@
     <ClCompile Include="src\Attack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp">
@@ -777,6 +780,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\Attack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

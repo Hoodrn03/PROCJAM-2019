@@ -471,6 +471,21 @@ Cell& Grid::m_FindCellWithPosition(sf::Vector2f cellPos)
 	return *&Cell();
 }
 
+sf::Vector2f Grid::m_GetStartingPositionFromGrid()
+{
+	int l_iStartX = 0, l_iStartY = 0;
+
+	do
+	{
+		l_iStartX = m_GererateInt(0, v_Grid.size());
+
+		l_iStartY = m_GererateInt(0, v_Grid[l_iStartX].size());
+
+	} while (v_Grid[l_iStartX][l_iStartY].m_IsTilePassable() != true);
+
+	return v_Grid[l_iStartX][l_iStartY].m_GetCellPosition();
+}
+
 void Grid::m_CreateRoad()
 {
 	v_Grid[m_GererateInt(0, v_Grid.size())][m_GererateInt(0, v_Grid[0].size())].m_SetTile(Tile::road);

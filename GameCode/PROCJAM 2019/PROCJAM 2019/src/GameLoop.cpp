@@ -37,7 +37,7 @@ void GameLoop::m_RunGame()
 
 	m_ThisPlayer->m_CreateView(200, 200);
 
-	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetBorderlineCenter());
+	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
 	
 	// Init Enemies
 

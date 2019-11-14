@@ -87,6 +87,8 @@ public:
 
 	Cell& m_FindCellWithPosition(sf::Vector2f cellPos);
 
+	sf::Vector2f m_GetStartingPositionFromGrid(); 
+
 	// Map Generation
 
 	void m_CreateRoad();
