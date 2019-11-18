@@ -29,21 +29,23 @@ void GameLoop::m_RunGame()
 
 	m_ThisGrid.reset(new Grid());
 
-	m_ThisGrid->m_CreateGrid(15, 15);
+	m_ThisGrid->m_CreateGrid(30, 30);
 
 	// Init Player
 
 	m_ThisPlayer.reset(new Player());
 
-	m_ThisPlayer->m_CreateView(200, 200);
+	m_ThisPlayer->m_CreateView(800, 800);
 
 	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
 	
 	// Init Enemies
 
-	// Test Items 
+	Enemy l_NewEnemy; 
 
-	Attack l_NewAttack; 
+	l_NewEnemy.m_CreateEnemy(m_ThisGrid->m_GetStartingPositionFromGrid());
+
+	// Test Items 
 
 	// End of Setup
 
@@ -57,6 +59,8 @@ void GameLoop::m_RunGame()
 
 		m_ThisPlayer->m_Update();
 		m_ThisPlayer->m_SetCurrentWindow(m_ptrWindow->m_GetWindow());
+
+		l_NewEnemy.m_MoveToPlayer(m_ThisPlayer->m_GetPlayerPosition());
 
 		// End of Update
 
@@ -76,7 +80,7 @@ void GameLoop::m_RunGame()
 
 		m_ThisPlayer->m_DrawPlayer(m_ptrWindow->m_GetWindow());
 
-		l_NewAttack.m_DrawAttackBody(m_ptrWindow->m_GetWindow());
+		l_NewEnemy.m_DrawEnemy(m_ptrWindow->m_GetWindow());
 
 		// End of drawing
 
@@ -110,7 +114,7 @@ void GameLoop::m_Update()
 
 		if (m_ThisGrid->m_PlayerOutsideGrid() == true)
 		{
-			m_ThisPlayer->m_SetPlayerStartingPos(l_TempCell->m_GetCellPosition());
+			m_ThisPlayer->m_SetPlayerStartingPos(sf::Vector2f(0, 0));
 		}
 	}
 }

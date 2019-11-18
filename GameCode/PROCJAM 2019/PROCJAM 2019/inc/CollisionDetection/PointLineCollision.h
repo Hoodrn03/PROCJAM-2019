@@ -70,7 +70,7 @@ public:
 
 		float l_fReturnValue = 0;
 
-		l_fReturnValue = std::sqrt((x2 - x1) + (y2 - y1));
+		l_fReturnValue = std::sqrt((std::pow((x2 - x1), 2)) + (std::pow((y2 - y1), 2)));
 
 		return l_fReturnValue; 
 

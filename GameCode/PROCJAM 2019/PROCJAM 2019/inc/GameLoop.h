@@ -10,6 +10,7 @@
 #include "Grid.h"
 #include "Player.h"
 #include "Attack.h"
+#include "Enemy.h"
 
 /*! \class Used to hold the main game loop. */
 class GameLoop
