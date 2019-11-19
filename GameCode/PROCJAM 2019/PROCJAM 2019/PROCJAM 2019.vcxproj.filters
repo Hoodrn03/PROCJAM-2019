@@ -785,6 +785,9 @@
     <ClInclude Include="inc\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Movement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\SFML\Audio\SoundFileFactory.inl">

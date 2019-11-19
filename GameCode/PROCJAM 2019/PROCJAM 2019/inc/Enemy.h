@@ -5,8 +5,9 @@
 #include "SFML/Graphics.hpp"
 
 #include "CollisionDetection/PointLineCollision.h"
+#include "Movement.h"
 
-class Enemy : public PointLineCollision
+class Enemy : public PointLineCollision, public Movement
 {
 	// Constructor 
 
@@ -37,6 +38,8 @@ public:
 	void m_DrawEnemy(sf::RenderWindow& window); 
 
 	void m_Update(); 
+
+	void m_Move(); 
 
 	void m_MoveToPlayer(sf::Vector2f playerPos);
 

@@ -151,6 +151,7 @@
     <ClInclude Include="inc\GameView.h" />
     <ClInclude Include="inc\GameWindow.h" />
     <ClInclude Include="inc\Grid.h" />
+    <ClInclude Include="inc\Movement.h" />
     <ClInclude Include="inc\Player.h" />
     <ClInclude Include="inc\CollisionDetection\PointLineCollision.h" />
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp" />

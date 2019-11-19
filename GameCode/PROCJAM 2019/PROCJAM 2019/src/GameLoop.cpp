@@ -61,6 +61,7 @@ void GameLoop::m_RunGame()
 		m_ThisPlayer->m_SetCurrentWindow(m_ptrWindow->m_GetWindow());
 
 		l_NewEnemy.m_MoveToPlayer(m_ThisPlayer->m_GetPlayerPosition());
+		l_NewEnemy.m_Update(); 
 
 		// End of Update
 

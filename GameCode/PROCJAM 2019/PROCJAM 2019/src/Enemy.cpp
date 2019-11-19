@@ -43,6 +43,14 @@ void Enemy::m_DrawEnemy(sf::RenderWindow& window)
 
 void Enemy::m_Update()
 {
+	m_Move();
+}
+
+void Enemy::m_Move()
+{
+	m_EnemyBody.move(m_MovementVector);
+
+	m_DetectionRadius.setPosition(m_EnemyBody.getPosition());
 }
 
 void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
@@ -51,7 +59,13 @@ void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
 
 	if (l_fDistToPlayer <= m_DetectionRadius.getRadius())
 	{
-		std::cout << "Inside Radius" << std::endl;
+		// std::cout << "Inside Radius" << std::endl;
+
+		m_MovementVector = m_GetMoveDirection(m_EnemyBody.getPosition(), playerPos);
+	}
+	else
+	{
+		m_MovementVector = sf::Vector2f(0, 0); 
 	}
 
 }
