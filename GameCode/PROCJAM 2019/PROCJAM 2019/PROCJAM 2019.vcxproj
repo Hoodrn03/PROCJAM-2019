@@ -388,6 +388,7 @@
     <ClInclude Include="inc\TGUI\Widgets\TextBox.hpp" />
     <ClInclude Include="inc\TGUI\Widgets\TreeView.hpp" />
     <ClInclude Include="inc\TGUI\Widgets\VerticalLayout.hpp" />
+    <ClInclude Include="inc\VectorMath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\SFML\Audio\SoundFileFactory.inl" />

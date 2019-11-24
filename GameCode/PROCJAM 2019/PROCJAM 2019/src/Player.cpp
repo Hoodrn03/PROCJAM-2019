@@ -11,6 +11,14 @@ Player::Player()
 	m_PlayerBody.setFillColor(sf::Color(150, 150, 150, 255));
 
 	// End of player creation. 
+
+	m_AttackRadius.setRadius(50);
+
+	m_AttackRadius.setOrigin(sf::Vector2f(m_AttackRadius.getPosition().x + m_AttackRadius.getGlobalBounds().width / 2, 
+		m_AttackRadius.getPosition().y + m_AttackRadius.getGlobalBounds().height / 2));
+
+	m_AttackRadius.setFillColor(sf::Color::Green);
+
 }
 
 Player::~Player()
@@ -22,6 +30,8 @@ param one: The game window to draw onto.
 */
 void Player::m_DrawPlayer(sf::RenderWindow& window)
 {
+	window.draw(m_AttackRadius); 
+
 	window.draw(m_PlayerBody);
 
 	m_clAttack.m_DrawAttackBody(window);
@@ -152,8 +162,12 @@ void Player::m_Movement()
 	}
 
 	m_PlayerBody.move(m_MovementVector);
+	m_AttackRadius.setPosition(sf::Vector2f(m_PlayerBody.getPosition().x + m_PlayerBody.getGlobalBounds().width / 2,
+		m_PlayerBody.getPosition().y + m_PlayerBody.getGlobalBounds().height / 2));
 
 	// End of moving player.
+
+
 
 	// Move View
 
@@ -166,26 +180,34 @@ void Player::m_Attack()
 {
 
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		if (m_bMoveUp)
-		{
-			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() - sf::Vector2f(0, 25));
-		}
-		else if (m_bMoveDown)
-		{
-			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() + sf::Vector2f(0, 50));
-		}
-		else if (m_bMoveLeft)
-		{
-			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() - sf::Vector2f(25, 0), 90);
-		}
-		else if (m_bMoveRight)
-		{
-			m_clAttack.m_CreateAttackBody(m_GetPlayerPosition() + sf::Vector2f(50, 0), 90);
-		}
 
-		std::cout << "Slash" << std::endl;
+		// Calculate mouse pos in world 
+
+		sf::Vector2f l_MousePos = m_CurrentWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_CurrentWindow));
+
+		// Calculate angle 
+
+		float l_fAngle;
+
+		float l_fAngleInRads = std::atan2(l_MousePos.y - m_PlayerBody.getPosition().y, l_MousePos.x - m_PlayerBody.getPosition().x);
+
+		l_fAngle = l_fAngleInRads * 180.f / PI;
+
+		// std::cout << " Angle " << l_fAngle; 
+
+		// Calculate position. 
+
+		Vector l_EndVector = NormaliseVector(m_PlayerBody.getPosition().x, m_PlayerBody.getPosition().y, l_MousePos.x, l_MousePos.y); 
+
+		sf::Vector2f l_AttackPos = sf::Vector2f(l_EndVector.x * 50, l_EndVector.y * 50);
+
+		// Set Attack Position. 
+
+		m_clAttack.m_CreateAttackBody(m_PlayerBody.getPosition() + l_AttackPos, l_fAngle + 90);
+
+		// std::cout << "Slash : "  << l_dAngle << std::endl;
 	}
 	else
 	{
@@ -197,6 +219,16 @@ void Player::m_Attack()
 void Player::m_SetPlayerStartingPos(sf::Vector2f newPos)
 {
 	m_PlayerBody.setPosition(newPos); 
+}
+
+void Player::m_SetPlayerStartingPos(float x, float y)
+{
+	m_PlayerBody.setPosition(x, y);
+}
+
+void Player::m_SetWindowPtr(sf::RenderWindow& window)
+{
+	m_CurrentWindow.reset(&window);
 }
 
 sf::Vector2f Player::m_GetPlayerPosition()

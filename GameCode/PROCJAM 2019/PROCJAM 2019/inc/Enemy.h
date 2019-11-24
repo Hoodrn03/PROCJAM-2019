@@ -35,6 +35,8 @@ public:
 
 	void m_CreateEnemy(sf::Vector2f enemyPos);
 
+	void m_CreateEnemy(float x, float y);
+
 	void m_DrawEnemy(sf::RenderWindow& window); 
 
 	void m_Update(); 
@@ -42,5 +44,7 @@ public:
 	void m_Move(); 
 
 	void m_MoveToPlayer(sf::Vector2f playerPos);
+
+	sf::Vector2f m_GetEnemyCenter(); 
 
 };

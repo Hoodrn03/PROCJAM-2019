@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <cmath>
 
 #include "SFML/Graphics.hpp"
 
@@ -8,11 +9,14 @@
 
 #include "CollisionDetection/PointLineCollision.h"
 #include "Attack.h"
+#include "VectorMath.h"
+
+#define PI 3.14159265f
 
 /*! \class Used to create and manage a player character. 
 			Has a view attached to the player to act as a movable camera. 
 */
-class Player: public GameView, public PointLineCollision
+class Player: public GameView, public PointLineCollision, public VectorMath
 {
 	// Constructor 
 
@@ -30,6 +34,8 @@ private:
 
 	/*! \var The main body used to display the player. */
 	sf::RectangleShape m_PlayerBody;
+
+	sf::CircleShape m_AttackRadius; 
 
 	// Moving 
 
@@ -52,6 +58,8 @@ private:
 
 	const float m_fAttackTimer = 0.5f;
 
+	std::unique_ptr<sf::RenderWindow> m_CurrentWindow;
+
 	// Member Functions 
 
 public:
@@ -73,7 +81,10 @@ public:
 
 	void m_Attack(); 
 
-	void m_SetPlayerStartingPos(sf::Vector2f newPos); 
+	void m_SetPlayerStartingPos(sf::Vector2f newPos);
+	void m_SetPlayerStartingPos(float x, float y);
+
+	void m_SetWindowPtr(sf::RenderWindow& window);
 
 	sf::Vector2f m_GetPlayerPosition(); 
 

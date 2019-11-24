@@ -27,9 +27,9 @@ void GameLoop::m_RunGame()
 
 	// Init Grid
 
-	m_ThisGrid.reset(new Grid());
+	// m_ThisGrid.reset(new Grid());
 
-	m_ThisGrid->m_CreateGrid(30, 30);
+	// m_ThisGrid->m_CreateGrid(30, 30);
 
 	// Init Player
 
@@ -37,13 +37,18 @@ void GameLoop::m_RunGame()
 
 	m_ThisPlayer->m_CreateView(800, 800);
 
-	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
+	// m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
 	
+	m_ThisPlayer->m_SetPlayerStartingPos(0, 0);
+	m_ThisPlayer->m_SetWindowPtr(m_ptrWindow->m_GetWindow());
+
 	// Init Enemies
 
 	Enemy l_NewEnemy; 
 
-	l_NewEnemy.m_CreateEnemy(m_ThisGrid->m_GetStartingPositionFromGrid());
+	// l_NewEnemy.m_CreateEnemy(m_ThisGrid->m_GetStartingPositionFromGrid());
+
+	l_NewEnemy.m_CreateEnemy(150, 150); 
 
 	// Test Items 
 
@@ -77,7 +82,7 @@ void GameLoop::m_RunGame()
 
 		// Beginning of drawing
 
-		m_ThisGrid->m_DrawGrid(m_ptrWindow->m_GetWindow(), m_ThisPlayer->m_GetView());
+		// m_ThisGrid->m_DrawGrid(m_ptrWindow->m_GetWindow(), m_ThisPlayer->m_GetView());
 
 		m_ThisPlayer->m_DrawPlayer(m_ptrWindow->m_GetWindow());
 
@@ -101,6 +106,7 @@ void GameLoop::m_Update()
 	while (m_ptrWindow->m_GetWindow().isOpen())
 	{
 		// std::cout << " Update " << std::endl;
+		/*
 
 		Cell* l_TempCell = &m_ThisGrid->m_FindCellWithPosition(m_ThisPlayer->m_GetPlayerPosition());
 
@@ -117,5 +123,7 @@ void GameLoop::m_Update()
 		{
 			m_ThisPlayer->m_SetPlayerStartingPos(sf::Vector2f(0, 0));
 		}
+
+		*/
 	}
 }

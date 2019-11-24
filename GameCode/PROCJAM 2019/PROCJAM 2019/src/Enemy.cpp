@@ -34,6 +34,32 @@ void Enemy::m_CreateEnemy(sf::Vector2f enemyPos)
 	m_DetectionRadius.setOutlineColor(sf::Color::Magenta);
 }
 
+void Enemy::m_CreateEnemy(float x, float y)
+{
+	// Main enemy setup
+
+	m_EnemyBody.setSize(m_EnemySize);
+
+	m_EnemyBody.setPosition(x, y);
+
+	m_EnemyBody.setFillColor(sf::Color::Black);
+
+	// Detection Radius setup 
+
+	m_DetectionRadius.setRadius(150);
+
+	m_DetectionRadius.setOrigin(sf::Vector2f(m_DetectionRadius.getPosition().x + m_DetectionRadius.getGlobalBounds().width / 2,
+		m_DetectionRadius.getPosition().y + m_DetectionRadius.getGlobalBounds().height / 2));
+
+	m_DetectionRadius.setPosition(m_EnemyBody.getPosition());
+
+	m_DetectionRadius.setOutlineThickness(5);
+
+	m_DetectionRadius.setFillColor(sf::Color::Transparent);
+
+	m_DetectionRadius.setOutlineColor(sf::Color::Magenta);
+}
+
 void Enemy::m_DrawEnemy(sf::RenderWindow& window)
 {
 
@@ -50,7 +76,7 @@ void Enemy::m_Move()
 {
 	m_EnemyBody.move(m_MovementVector);
 
-	m_DetectionRadius.setPosition(m_EnemyBody.getPosition());
+	m_DetectionRadius.setPosition(m_GetEnemyCenter());
 }
 
 void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
@@ -68,4 +94,10 @@ void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
 		m_MovementVector = sf::Vector2f(0, 0); 
 	}
 
+}
+
+sf::Vector2f Enemy::m_GetEnemyCenter()
+{
+	return sf::Vector2f(m_EnemyBody.getPosition().x + m_EnemyBody.getGlobalBounds().width / 2, 
+		m_EnemyBody.getPosition().y + m_EnemyBody.getGlobalBounds().height / 2);
 }

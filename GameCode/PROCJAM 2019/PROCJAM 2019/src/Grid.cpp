@@ -475,15 +475,31 @@ sf::Vector2f Grid::m_GetStartingPositionFromGrid()
 {
 	int l_iStartX = 0, l_iStartY = 0;
 
+	int l_iLoopCount = 0; 
+
+	sf::Vector2f l_ReturnVector; 
+
 	do
 	{
-		l_iStartX = m_GererateInt(0, v_Grid.size());
+		l_iStartX = m_GererateInt(0, v_Grid.size() - 1);
 
-		l_iStartY = m_GererateInt(0, v_Grid[l_iStartX].size());
+		l_iStartY = m_GererateInt(0, v_Grid[l_iStartX].size() - 1);
+
+		l_iLoopCount++;
+
+		if (l_iLoopCount >= 100)
+		{
+			break; 
+		}
 
 	} while (v_Grid[l_iStartX][l_iStartY].m_IsTilePassable() != true);
 
-	return v_Grid[l_iStartX][l_iStartY].m_GetCellPosition();
+	if (v_Grid[l_iStartX][l_iStartY].m_IsTilePassable() != true)
+	{
+		l_ReturnVector = v_Grid[l_iStartX][l_iStartY].m_GetCellPosition();
+	}
+
+	return l_ReturnVector;
 }
 
 void Grid::m_CreateRoad()
