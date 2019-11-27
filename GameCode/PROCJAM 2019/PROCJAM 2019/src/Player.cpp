@@ -23,6 +23,7 @@ Player::Player()
 
 Player::~Player()
 {
+	m_ptrCurrentWindow.release(); 
 }
 
 /*! \fn DrawPlayer Used to draw the player sprite onto the game window
@@ -185,7 +186,7 @@ void Player::m_Attack()
 
 		// Calculate mouse pos in world 
 
-		sf::Vector2f l_MousePos = m_CurrentWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_CurrentWindow));
+		sf::Vector2f l_MousePos = m_ptrCurrentWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_ptrCurrentWindow));
 
 		// Calculate angle 
 
@@ -201,7 +202,9 @@ void Player::m_Attack()
 
 		Vector l_EndVector = NormaliseVector(m_PlayerBody.getPosition().x, m_PlayerBody.getPosition().y, l_MousePos.x, l_MousePos.y); 
 
-		sf::Vector2f l_AttackPos = sf::Vector2f(l_EndVector.x * 50, l_EndVector.y * 50);
+		m_AttackPossition = sf::Vector2f(l_EndVector.x, l_EndVector.y);
+
+		sf::Vector2f l_AttackPos = sf::Vector2f(m_AttackPossition.x * 50, m_AttackPossition.y * 50);
 
 		// Set Attack Position. 
 
@@ -216,6 +219,11 @@ void Player::m_Attack()
 
 }
 
+bool Player::m_HitEnemy(sf::Vector2f enemyPos)
+{
+	return m_clAttack.m_HitDetection(enemyPos);
+}
+
 void Player::m_SetPlayerStartingPos(sf::Vector2f newPos)
 {
 	m_PlayerBody.setPosition(newPos); 
@@ -228,7 +236,7 @@ void Player::m_SetPlayerStartingPos(float x, float y)
 
 void Player::m_SetWindowPtr(sf::RenderWindow& window)
 {
-	m_CurrentWindow.reset(&window);
+	m_ptrCurrentWindow.reset(&window);
 }
 
 sf::Vector2f Player::m_GetPlayerPosition()
@@ -241,6 +249,11 @@ sf::Vector2f Player::m_GetPlayerPosition()
 sf::Vector2f Player::m_GetPlayerSize()
 {
 	return m_PlayerBody.getSize();;
+}
+
+sf::Vector2f Player::m_GetAttackPosition()
+{
+	return m_AttackPossition;
 }
 
 

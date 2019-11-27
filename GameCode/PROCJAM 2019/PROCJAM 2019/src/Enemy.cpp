@@ -101,3 +101,27 @@ sf::Vector2f Enemy::m_GetEnemyCenter()
 	return sf::Vector2f(m_EnemyBody.getPosition().x + m_EnemyBody.getGlobalBounds().width / 2, 
 		m_EnemyBody.getPosition().y + m_EnemyBody.getGlobalBounds().height / 2);
 }
+
+void Enemy::m_EnemyKnockBack(sf::Vector2f direction)
+{
+	if (m_ImunityTimer.getElapsedTime().asSeconds() >= m_fDamageImunity)
+	{
+		m_ImunityTimer.restart(); 
+
+		float l_fSpeed = m_DetectionRadius.getRadius() / 2;
+
+		m_EnemyBody.move(direction * l_fSpeed);
+
+		m_fHealth -= 25; 
+	}
+}
+
+bool Enemy::m_DestroyEnemy()
+{
+	if (m_fHealth <= 0)
+	{
+		return true;
+	}
+
+	return false; 
+}

@@ -6,6 +6,7 @@ GameWindow::GameWindow()
 
 GameWindow::~GameWindow()
 {
+	
 }
 
 /*! \fn CreateWindow : This will be used to initalize the game window.

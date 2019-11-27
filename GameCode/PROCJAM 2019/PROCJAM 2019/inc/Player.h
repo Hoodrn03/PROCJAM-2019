@@ -58,7 +58,9 @@ private:
 
 	const float m_fAttackTimer = 0.5f;
 
-	std::unique_ptr<sf::RenderWindow> m_CurrentWindow;
+	std::unique_ptr<sf::RenderWindow> m_ptrCurrentWindow;
+
+	sf::Vector2f m_AttackPossition; 
 
 	// Member Functions 
 
@@ -81,6 +83,8 @@ public:
 
 	void m_Attack(); 
 
+	bool m_HitEnemy(sf::Vector2f enemyPos); 
+
 	void m_SetPlayerStartingPos(sf::Vector2f newPos);
 	void m_SetPlayerStartingPos(float x, float y);
 
@@ -89,4 +93,6 @@ public:
 	sf::Vector2f m_GetPlayerPosition(); 
 
 	sf::Vector2f m_GetPlayerSize();
+
+	sf::Vector2f m_GetAttackPosition(); 
 };

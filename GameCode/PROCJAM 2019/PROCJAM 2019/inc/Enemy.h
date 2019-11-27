@@ -29,6 +29,12 @@ private:
 
 	sf::CircleShape m_DetectionRadius;
 
+	const float m_fDamageImunity = 2.5f;
+
+	sf::Clock m_ImunityTimer; 
+
+	float m_fHealth = 100.f;
+
 	// Member Functions 
 
 public:
@@ -46,5 +52,9 @@ public:
 	void m_MoveToPlayer(sf::Vector2f playerPos);
 
 	sf::Vector2f m_GetEnemyCenter(); 
+
+	void m_EnemyKnockBack(sf::Vector2f direction); 
+
+	bool m_DestroyEnemy(); 
 
 };

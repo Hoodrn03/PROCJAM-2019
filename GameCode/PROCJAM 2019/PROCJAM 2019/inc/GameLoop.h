@@ -35,6 +35,8 @@ private:
 	/*! \var This will control the main functionality of the player character. */
 	std::unique_ptr<Player> m_ThisPlayer;
 
+	std::unique_ptr<Enemy> m_ThisEnemy; 
+
 	/*! \var This will hold and maintain the grid/map in the game. */
 	std::unique_ptr<Grid> m_ThisGrid;
 
