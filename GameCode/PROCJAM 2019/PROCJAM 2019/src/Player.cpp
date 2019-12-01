@@ -31,7 +31,7 @@ param one: The game window to draw onto.
 */
 void Player::m_DrawPlayer(sf::RenderWindow& window)
 {
-	window.draw(m_AttackRadius); 
+	// window.draw(m_AttackRadius); 
 
 	window.draw(m_PlayerBody);
 
@@ -46,6 +46,16 @@ void Player::m_Update()
 	m_Movement();
 
 	m_Attack();
+
+	m_CheckForDeath();
+}
+
+void Player::m_CheckForDeath()
+{
+	if (m_fLife <= 0)
+	{
+		std::cout << "You Lose" << std::endl;
+	}
 }
 
 void Player::m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile)
@@ -168,8 +178,6 @@ void Player::m_Movement()
 
 	// End of moving player.
 
-
-
 	// Move View
 
 	m_MoveView(m_PlayerBody.getPosition()); 
@@ -179,8 +187,6 @@ void Player::m_Movement()
 
 void Player::m_Attack()
 {
-
-
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 
@@ -224,6 +230,21 @@ bool Player::m_HitEnemy(sf::Vector2f enemyPos)
 	return m_clAttack.m_HitDetection(enemyPos);
 }
 
+void Player::m_IsHit(bool enemyAttack)
+{
+	if (m_ImunityTimer.getElapsedTime().asSeconds() >= m_fImunityLimiter)
+	{
+		if (enemyAttack)
+		{
+			std::cout << "Player Hit" << std::endl;
+				 
+			m_ImunityTimer.restart();
+
+			m_fLife -= 25.f;
+		}
+	}
+}
+
 void Player::m_SetPlayerStartingPos(sf::Vector2f newPos)
 {
 	m_PlayerBody.setPosition(newPos); 
@@ -254,6 +275,11 @@ sf::Vector2f Player::m_GetPlayerSize()
 sf::Vector2f Player::m_GetAttackPosition()
 {
 	return m_AttackPossition;
+}
+
+sf::FloatRect Player::m_GetAttackRect()
+{
+	return m_clAttack.m_GetAttackRect();
 }
 
 

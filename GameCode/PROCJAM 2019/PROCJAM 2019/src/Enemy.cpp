@@ -4,6 +4,11 @@ Enemy::Enemy()
 {
 }
 
+Enemy::Enemy(sf::Vector2f enemyPos)
+{
+	m_CreateEnemy(enemyPos); 
+}
+
 Enemy::~Enemy()
 {
 }
@@ -32,6 +37,17 @@ void Enemy::m_CreateEnemy(sf::Vector2f enemyPos)
 	m_DetectionRadius.setFillColor(sf::Color::Transparent);
 
 	m_DetectionRadius.setOutlineColor(sf::Color::Magenta);
+
+	// Setup Attack Radius 
+
+	m_AttackRadius.setRadius(m_EnemyBody.getGlobalBounds().width + 10.f);
+
+	m_AttackRadius.setOrigin(sf::Vector2f(m_AttackRadius.getPosition().x + m_AttackRadius.getGlobalBounds().width / 2,
+		m_AttackRadius.getPosition().y + m_AttackRadius.getGlobalBounds().height / 2));
+
+	m_AttackRadius.setPosition(m_GetEnemyCenter());
+
+	m_AttackRadius.setFillColor(sf::Color::Green);
 }
 
 void Enemy::m_CreateEnemy(float x, float y)
@@ -58,12 +74,26 @@ void Enemy::m_CreateEnemy(float x, float y)
 	m_DetectionRadius.setFillColor(sf::Color::Transparent);
 
 	m_DetectionRadius.setOutlineColor(sf::Color::Magenta);
+
+	// Setup Attack Radius 
+
+	m_AttackRadius.setRadius(m_EnemyBody.getGlobalBounds().width + 10.f);
+
+	m_AttackRadius.setOrigin(sf::Vector2f(m_AttackRadius.getPosition().x + m_AttackRadius.getGlobalBounds().width / 2,
+		m_AttackRadius.getPosition().y + m_AttackRadius.getGlobalBounds().height / 2));
+
+	m_AttackRadius.setPosition(m_GetEnemyCenter());
+
+	m_AttackRadius.setFillColor(sf::Color::Green);
+
 }
 
 void Enemy::m_DrawEnemy(sf::RenderWindow& window)
 {
-
 	window.draw(m_DetectionRadius);
+
+	window.draw(m_AttackRadius); 
+
 	window.draw(m_EnemyBody); 
 }
 
@@ -77,6 +107,7 @@ void Enemy::m_Move()
 	m_EnemyBody.move(m_MovementVector);
 
 	m_DetectionRadius.setPosition(m_GetEnemyCenter());
+	m_AttackRadius.setPosition(m_GetEnemyCenter());
 }
 
 void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
@@ -94,6 +125,22 @@ void Enemy::m_MoveToPlayer(sf::Vector2f playerPos)
 		m_MovementVector = sf::Vector2f(0, 0); 
 	}
 
+}
+
+bool Enemy::m_HitPlayer(sf::Vector2f playerPos)
+{
+	float l_fDistToPlayer = m_Dist(playerPos.x, playerPos.y, m_EnemyBody.getPosition().x, m_EnemyBody.getPosition().y);
+
+	if (l_fDistToPlayer <= m_AttackRadius.getRadius())
+	{
+		// std::cout << "Inside Radius" << std::endl;
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 sf::Vector2f Enemy::m_GetEnemyCenter()

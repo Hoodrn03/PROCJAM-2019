@@ -133,6 +133,7 @@
     <ClCompile Include="src\Attack.cpp" />
     <ClCompile Include="src\Cell.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyManager.cpp" />
     <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\GameView.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="inc\Cell.h" />
     <ClInclude Include="inc\CollisionDetection\BoxCollision.h" />
     <ClInclude Include="inc\Enemy.h" />
+    <ClInclude Include="inc\EnemyManager.h" />
     <ClInclude Include="inc\EventHandler.h" />
     <ClInclude Include="inc\GameLoop.h" />
     <ClInclude Include="inc\GameView.h" />

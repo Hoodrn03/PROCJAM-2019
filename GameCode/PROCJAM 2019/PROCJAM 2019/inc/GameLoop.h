@@ -10,7 +10,7 @@
 #include "Grid.h"
 #include "Player.h"
 #include "Attack.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 
 /*! \class Used to hold the main game loop. */
 class GameLoop
@@ -35,7 +35,7 @@ private:
 	/*! \var This will control the main functionality of the player character. */
 	std::unique_ptr<Player> m_ThisPlayer;
 
-	std::unique_ptr<Enemy> m_ThisEnemy; 
+	EnemyManager m_ThisEnemyManager; 
 
 	/*! \var This will hold and maintain the grid/map in the game. */
 	std::unique_ptr<Grid> m_ThisGrid;

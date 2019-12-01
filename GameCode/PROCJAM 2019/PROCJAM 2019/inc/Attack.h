@@ -66,4 +66,6 @@ public:
 	/*! \fn ThisExists : Used to check if there is currently an attack body in the game. */
 	bool m_ThisExists(); 
 
+	sf::FloatRect m_GetAttackRect(); 
+
 };

@@ -95,4 +95,9 @@ bool Attack::m_ThisExists()
 	return false;
 }
 
+sf::FloatRect Attack::m_GetAttackRect()
+{
+	return m_AttackBody->getGlobalBounds();
+}
+
 //					File End						\\

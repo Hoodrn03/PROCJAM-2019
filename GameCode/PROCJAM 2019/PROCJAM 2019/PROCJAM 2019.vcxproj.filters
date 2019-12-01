@@ -48,6 +48,9 @@
     <ClCompile Include="src\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\EnemyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\PUGIXML\pugiconfig.hpp">
@@ -789,6 +792,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\VectorMath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EnemyManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

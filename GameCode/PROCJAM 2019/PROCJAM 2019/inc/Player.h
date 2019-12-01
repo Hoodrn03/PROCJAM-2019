@@ -62,17 +62,31 @@ private:
 
 	sf::Vector2f m_AttackPossition; 
 
+	float m_fLife = 100.f; 
+
+	float m_fImunityLimiter = 1.5f;
+
+	sf::Clock m_ImunityTimer; 
+
 	// Member Functions 
 
 public:
+
+	// Rendering 
 
 	/*! \fn DrawPlayer Used to draw the player sprite onto the game window
 	param one: The game window to draw onto. 
 	*/
 	void m_DrawPlayer(sf::RenderWindow& window); 
 
+	// Update 
+
 	/*! \fn Update Used to update the player once each loop. */
 	void m_Update(); 
+
+	void m_CheckForDeath(); 
+
+	// Movement 
 
 	void m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile);
 
@@ -81,18 +95,26 @@ public:
 	/*! \fn Movement Used to handle the movement of the player character. */
 	void m_Movement(); 
 
+	void m_SetPlayerStartingPos(sf::Vector2f newPos);
+	void m_SetPlayerStartingPos(float x, float y);
+
+	sf::Vector2f m_GetPlayerPosition();
+
+	// Attacking 
+
 	void m_Attack(); 
 
 	bool m_HitEnemy(sf::Vector2f enemyPos); 
 
-	void m_SetPlayerStartingPos(sf::Vector2f newPos);
-	void m_SetPlayerStartingPos(float x, float y);
+	void m_IsHit(bool enemyAttack);
+
+	sf::Vector2f m_GetAttackPosition();
+
+	sf::FloatRect m_GetAttackRect();
 
 	void m_SetWindowPtr(sf::RenderWindow& window);
 
-	sf::Vector2f m_GetPlayerPosition(); 
-
 	sf::Vector2f m_GetPlayerSize();
 
-	sf::Vector2f m_GetAttackPosition(); 
+
 };

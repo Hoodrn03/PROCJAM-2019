@@ -21,7 +21,7 @@ void GameLoop::m_RunGame()
 
 	// Init Event Handler
 
-	std::unique_ptr<EventHandler> l_ptrEventHandler; 
+	std::unique_ptr<EventHandler> l_ptrEventHandler;
 
 	l_ptrEventHandler.reset(new EventHandler());
 
@@ -38,17 +38,17 @@ void GameLoop::m_RunGame()
 	m_ThisPlayer->m_CreateView(800, 800);
 
 	// m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
-	
+
 	m_ThisPlayer->m_SetPlayerStartingPos(0, 0);
 	m_ThisPlayer->m_SetWindowPtr(m_ptrWindow->m_GetWindow());
 
 	// Init Enemies
 
-	// l_NewEnemy.m_CreateEnemy(m_ThisGrid->m_GetStartingPositionFromGrid());
+	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(300, 300));
 
-	m_ThisEnemy.reset(new Enemy()); 
+	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(150, 300));
 
-	m_ThisEnemy->m_CreateEnemy(150, 150);
+	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(300, 200));
 
 	// Test Items 
 
@@ -62,21 +62,16 @@ void GameLoop::m_RunGame()
 
 		// Update Items
 
+			// Update Player
 		m_ThisPlayer->m_Update();
 		m_ThisPlayer->m_SetCurrentWindow(m_ptrWindow->m_GetWindow());
 
-		if (m_ThisEnemy != nullptr)
-		{
-			bool l_bEnemyHit = m_ThisPlayer->m_HitEnemy(m_ThisEnemy->m_GetEnemyCenter());
-
-			m_ThisEnemy->m_MoveToPlayer(m_ThisPlayer->m_GetPlayerPosition());
-			m_ThisEnemy->m_Update();
-
-			if (l_bEnemyHit == true)
-			{
-				m_ThisEnemy->m_EnemyKnockBack(m_ThisPlayer->m_GetAttackPosition());
-			}
-		}
+			// Update Enemies
+		m_ThisEnemyManager.m_MoveToPlayer(m_ThisPlayer->m_GetPlayerPosition());
+		m_ThisEnemyManager.m_UpdateEnemies();
+		m_ThisEnemyManager.m_EnemiesHit(m_ThisPlayer->m_GetAttackRect(), m_ThisPlayer->m_GetAttackPosition());
+		
+		m_ThisPlayer->m_IsHit(m_ThisEnemyManager.m_AttackPlayer(m_ThisPlayer->m_GetPlayerPosition()));
 
 		// End of Update
 
@@ -96,10 +91,7 @@ void GameLoop::m_RunGame()
 
 		m_ThisPlayer->m_DrawPlayer(m_ptrWindow->m_GetWindow());
 
-		if (m_ThisEnemy != nullptr)
-		{
-			m_ThisEnemy->m_DrawEnemy(m_ptrWindow->m_GetWindow());
-		}
+		m_ThisEnemyManager.m_DrawEnemies(m_ptrWindow->m_GetWindow());
 		// End of drawing
 
 		m_ptrWindow->m_DisplayWindow();
@@ -108,13 +100,7 @@ void GameLoop::m_RunGame()
 
 		// End of frame removal of items.
 
-		if (m_ThisEnemy != nullptr)
-		{
-			if (m_ThisEnemy->m_DestroyEnemy() == true)
-			{
-				m_ThisEnemy.release();
-			}
-		}
+		m_ThisEnemyManager.m_RemoveEnemies(); 
 
 		// End of loop 
 	}
