@@ -27,9 +27,9 @@ void GameLoop::m_RunGame()
 
 	// Init Grid
 
-	m_ThisGrid.reset(new Grid());
+	Grid l_TempGrid; 
 
-	m_ThisGrid->m_CreateGrid(30, 30);
+	l_TempGrid.m_CreateinitialGrid(50);
 
 	// Init Player
 
@@ -52,6 +52,8 @@ void GameLoop::m_RunGame()
 
 	// Test Items 
 
+	bool l_bDown = false; 
+
 	// End of Setup
 
 	std::thread l_First([this] { this->m_Update(); });
@@ -73,6 +75,40 @@ void GameLoop::m_RunGame()
 		
 		m_ThisPlayer->m_IsHit(m_ThisEnemyManager.m_AttackPlayer(m_ThisPlayer->m_GetPlayerPosition()));
 
+		if (l_bDown == false)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				l_TempGrid.m_AddCells(0);
+
+				l_bDown = true;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				l_TempGrid.m_AddCells(1);
+
+				l_bDown = true;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				l_TempGrid.m_AddCells(2);
+
+				l_bDown = true;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				l_TempGrid.m_AddCells(3);
+
+				l_bDown = true;
+			}
+		}
+
+		if (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			&& (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) && (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right)))
+		{
+			l_bDown = false; 
+		}
+
 		// End of Update
 
 		// Handle Events 
@@ -87,7 +123,7 @@ void GameLoop::m_RunGame()
 
 		// Beginning of drawing
 
-		m_ThisGrid->m_DrawGrid(m_ptrWindow->m_GetWindow(), m_ThisPlayer->m_GetView());
+		l_TempGrid.m_DrawGrid(m_ptrWindow->m_GetWindow(), m_ThisPlayer->m_GetView());
 
 		m_ThisPlayer->m_DrawPlayer(m_ptrWindow->m_GetWindow());
 
@@ -114,22 +150,6 @@ void GameLoop::m_Update()
 	while (m_ptrWindow->m_GetWindow().isOpen())
 	{
 		// std::cout << " Update " << std::endl;
-		
 
-		Cell* l_TempCell = &m_ThisGrid->m_FindCellWithPosition(m_ThisPlayer->m_GetPlayerPosition());
-
-		m_ThisPlayer->m_CheckMovementDirectionOne(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
-
-		l_TempCell = &m_ThisGrid->m_FindCellWithPosition(m_ThisPlayer->m_GetPlayerPosition() + m_ThisPlayer->m_GetPlayerSize());
-
-		m_ThisPlayer->m_CheckMovementDirectionTwo(l_TempCell->m_GetCellBounds(), l_TempCell->m_IsTilePassable());
-
-		m_ThisGrid->m_UpdateGrid();
-		m_ThisGrid->m_CheckForCollision(m_ThisPlayer->m_GetPlayerPosition());
-
-		if (m_ThisGrid->m_PlayerOutsideGrid() == true)
-		{
-			m_ThisPlayer->m_SetPlayerStartingPos(sf::Vector2f(0, 0));
-		}
 	}
 }

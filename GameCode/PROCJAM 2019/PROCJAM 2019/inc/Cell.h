@@ -37,5 +37,18 @@ public:
 
 public:
 
+	// Rendering
+
+	void m_DrawCell(sf::RenderWindow& window); 
+
+	// Positioning 
+
+	void m_SetPosition(sf::Vector2f newPos);
+
+	sf::Vector2f m_GetPosition(); 
+
+	sf::FloatRect m_GetFloatRect(); 
+
+	sf::Vector2f m_AddCell(int direction);
 
 };

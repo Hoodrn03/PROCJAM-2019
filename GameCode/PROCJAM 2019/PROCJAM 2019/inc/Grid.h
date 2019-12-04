@@ -29,9 +29,21 @@ public:
 
 private:
 
+	std::deque<std::deque<Cell>> v_GridOfCells; 
 
 	// Member Functions 
 
 public:
 
+	// Creating Grid
+
+	void m_CreateinitialGrid(int numberOfLoops); 
+
+	void m_AddCells(int direction);
+
+	// Rendering 
+
+	void m_DrawGrid(sf::RenderWindow & window);
+
+	void m_DrawGrid(sf::RenderWindow& window, sf::View& viewRect);
 };
