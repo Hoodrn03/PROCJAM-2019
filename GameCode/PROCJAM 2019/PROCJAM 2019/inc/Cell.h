@@ -4,6 +4,13 @@
 
 #include "CollisionDetection/BoxCollision.h"
 
+enum class tile
+{
+	null = 0x00, 
+	grass = 0x01, 
+	mountain = 0x02
+};
+
 /*! \class Cell This will be a single tile within the game world, it will have a position, id and a tile. */
 class Cell: public BoxCollision
 {
@@ -37,6 +44,8 @@ public:
 	int m_iID = 0; 
 	// Member Functions
 
+	tile m_ThisTile = tile::null; 
+
 public:
 
 	// Rendering
@@ -60,5 +69,11 @@ public:
 	void m_SetId(int newId); 
 
 	int m_GetId(); 
+
+	// Tile Management
+
+	void m_SetTile(tile newTile);
+
+	tile m_GetTile(); 
 
 };

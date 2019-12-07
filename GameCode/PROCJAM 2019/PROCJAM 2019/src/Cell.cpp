@@ -112,5 +112,28 @@ int Cell::m_GetId()
 	return m_iID;
 }
 
+void Cell::m_SetTile(tile newTile)
+{
+	m_ThisTile = newTile;
+
+	if (m_ThisTile == tile::grass)
+	{
+		m_CellBody.setFillColor(sf::Color(145, 252, 0));
+	}
+	else if (m_ThisTile == tile::mountain)
+	{
+		m_CellBody.setFillColor(sf::Color(151, 124, 83));
+	}
+	else
+	{
+		m_CellBody.setFillColor(sf::Color::Magenta); 
+	}
+}
+
+tile Cell::m_GetTile()
+{
+	return m_ThisTile;
+}
+
 
 

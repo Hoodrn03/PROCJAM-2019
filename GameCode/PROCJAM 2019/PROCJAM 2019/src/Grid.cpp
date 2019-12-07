@@ -276,6 +276,110 @@ void Grid::m_PlayerExitDirection(sf::Vector2f playerPos)
 
 }
 
+void Grid::m_AddGrassToMap()
+{
+	if (v_GridOfCells.size() > 0)
+	{
+		for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+		{
+			for (unsigned int j = 0; j < v_GridOfCells[i].size(); j++)
+			{
+				if (v_GridOfCells[i][j].m_GetTile() == tile::null)
+				{
+					v_GridOfCells[i][j].m_SetTile(tile::grass); 
+				}
+			}
+		}
+	}
+
+	std::cout << "Added Grass To Map." << std::endl;
+
+}
+
+void Grid::m_AddMountainToMap()
+{
+	if (v_GridOfCells.size() > 0)
+	{
+		int l_iNumberOfInitialMountainTiles = 10;
+
+		int l_iXpos, l_iYpos;
+
+		for (int i = 0; i < l_iNumberOfInitialMountainTiles; i++)
+		{
+			l_iXpos = m_GererateInt(0, v_GridOfCells.size());
+			l_iYpos = m_GererateInt(0, v_GridOfCells[0].size());
+
+			if (v_GridOfCells[l_iXpos][l_iYpos].m_GetTile() == tile::null)
+			{
+				v_GridOfCells[l_iXpos][l_iYpos].m_SetTile(tile::mountain);
+			}
+		}
+
+		int l_iDefaultPlaceChance = 15, l_iAdjacentBonus = 15, l_iCurrentBonus = 0;
+
+		for (int i = 0; i < (int)v_GridOfCells.size(); i++)
+		{
+			for (int j = 0; j < (int)v_GridOfCells[i].size(); j++)
+			{
+				if (v_GridOfCells[i][j].m_GetTile() == tile::null)
+				{
+					// Check Up 
+
+					if (j - 1 > 0)
+					{
+						if (v_GridOfCells[i][j - 1].m_GetTile() == tile::mountain)
+						{
+							l_iCurrentBonus += l_iAdjacentBonus; 
+						}
+					}
+
+					// Check Down
+
+					if (j + 1 < v_GridOfCells[i].size())
+					{
+						if (v_GridOfCells[i][j + 1].m_GetTile() == tile::mountain)
+						{
+							l_iCurrentBonus += l_iAdjacentBonus;
+						}
+					}
+
+					// Check Left
+
+					if (i - 1 > 0)
+					{
+						if (v_GridOfCells[i - 1][j].m_GetTile() == tile::mountain)
+						{
+							l_iCurrentBonus += l_iAdjacentBonus;
+						}
+					}
+
+					// Check Right
+
+					if (i + 1 < v_GridOfCells.size())
+					{
+						if (v_GridOfCells[i + 1][j].m_GetTile() == tile::mountain)
+						{
+							l_iCurrentBonus += l_iAdjacentBonus;
+						}
+					}
+
+					int l_iPlaceMountain = m_GererateInt(0, 100); 
+
+					if (l_iPlaceMountain <= l_iDefaultPlaceChance + l_iCurrentBonus)
+					{
+						v_GridOfCells[i][j].m_SetTile(tile::mountain); 
+					}
+
+				}
+
+				l_iCurrentBonus = 0; 
+			}
+		}
+	}
+
+	std::cout << "Added Mountain To Map." << std::endl;
+}
+
 void Grid::m_DrawGrid(sf::RenderWindow& window)
 {
 	if (v_GridOfCells.size() > 0)

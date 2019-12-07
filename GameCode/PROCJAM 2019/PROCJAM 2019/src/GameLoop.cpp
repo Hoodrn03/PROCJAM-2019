@@ -30,6 +30,8 @@ void GameLoop::m_RunGame()
 	m_ThisGrid.reset(new Grid());
 
 	m_ThisGrid->m_CreateinitialGrid(50);
+	m_ThisGrid->m_AddMountainToMap(); 
+	m_ThisGrid->m_AddGrassToMap(); 
 
 	// Init Player
 

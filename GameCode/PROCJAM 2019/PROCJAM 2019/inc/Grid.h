@@ -53,6 +53,12 @@ public:
 
 	void m_PlayerExitDirection(sf::Vector2f playerPos); 
 
+	// Tile Generation
+
+	void m_AddGrassToMap(); 
+
+	void m_AddMountainToMap(); 
+
 	// Rendering 
 
 	void m_DrawGrid(sf::RenderWindow & window);
