@@ -91,5 +91,26 @@ sf::Vector2f Cell::m_AddCell(int direction)
 	return l_ReturnVector;
 }
 
+bool Cell::m_PointInsideCell(sf::Vector2f pointToCheck)
+{
+	if (m_InsideBox(m_CellBody.getPosition().x, m_CellBody.getPosition().y, m_CellSize.x, m_CellSize.y,
+		pointToCheck.x, pointToCheck.y))
+	{
+		return true; 
+	}
+
+	return false;
+}
+
+void Cell::m_SetId(int newId)
+{
+	m_iID = newId;
+}
+
+int Cell::m_GetId()
+{
+	return m_iID;
+}
+
 
 

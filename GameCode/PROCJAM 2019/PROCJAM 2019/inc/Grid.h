@@ -31,6 +31,10 @@ private:
 
 	std::deque<std::deque<Cell>> v_GridOfCells; 
 
+	int m_iIdCounter = 0; 
+
+	sf::RectangleShape m_MapInnerBorder; 
+
 	// Member Functions 
 
 public:
@@ -40,6 +44,14 @@ public:
 	void m_CreateinitialGrid(int numberOfLoops); 
 
 	void m_AddCells(int direction);
+
+	void m_AddCells(int direction, int numberOfLoops);
+
+	void m_CheckPlayerInCell(sf::Vector2f playerPos); 
+
+	void m_UpdateInnerBorder(); 
+
+	void m_PlayerExitDirection(sf::Vector2f playerPos); 
 
 	// Rendering 
 

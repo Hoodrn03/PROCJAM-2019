@@ -2,9 +2,10 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "CollisionDetection/BoxCollision.h"
 
 /*! \class Cell This will be a single tile within the game world, it will have a position, id and a tile. */
-class Cell
+class Cell: public BoxCollision
 {
 	// Constructor 
 
@@ -33,6 +34,7 @@ public:
 	/*! \var The constant size used for every cell in the map. */
 	const sf::Vector2f m_CellSize = sf::Vector2f(48, 48); 
 
+	int m_iID = 0; 
 	// Member Functions
 
 public:
@@ -50,5 +52,13 @@ public:
 	sf::FloatRect m_GetFloatRect(); 
 
 	sf::Vector2f m_AddCell(int direction);
+
+	bool m_PointInsideCell(sf::Vector2f pointToCheck); 
+
+	// Identifiying 
+
+	void m_SetId(int newId); 
+
+	int m_GetId(); 
 
 };

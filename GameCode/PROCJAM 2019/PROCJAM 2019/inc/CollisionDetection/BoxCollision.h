@@ -64,28 +64,28 @@ public:
 		{
 			// std::cout << "Top" << std::endl;
 
-			return 1;
+			return 0;
 		}
 		// Bottom
 		else if ((px > boxX) && (px < boxX + boxWidth) && (py > (boxY + boxHeight) - l_fCollBuffer) && (py < (boxY + boxHeight) + l_fCollBuffer))
 		{
 			// std::cout << "Bottom" << std::endl;
 
-			return 2;
+			return 1;
 		}
 		// Left
 		else if ((py > boxY) && (py < boxY + boxHeight) && (px > (boxX) - l_fCollBuffer) && (px < (boxX) + l_fCollBuffer))
 		{
 			// std::cout << "Left" << std::endl;
 
-			return 3;
+			return 2;
 		}
 		// Right
 		else if ((py > boxY) && (py < boxY + boxHeight) && (px > (boxX + boxWidth) - l_fCollBuffer) && (px < (boxX + boxWidth) + l_fCollBuffer))
 		{
 			// std::cout << "Right" << std::endl;
 
-			return 4;
+			return 3;
 		}
 
 		return -1;

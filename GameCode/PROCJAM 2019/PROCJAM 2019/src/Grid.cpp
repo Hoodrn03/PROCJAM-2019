@@ -10,6 +10,8 @@ Grid::Grid()
 
 	v_GridOfCells.push_back(l_TempDeque);
 
+	m_MapInnerBorder.setFillColor(sf::Color::Green); 
+
 }
 
 Grid::~Grid()
@@ -27,83 +29,251 @@ void Grid::m_CreateinitialGrid(int numberOfLoops)
 		m_AddCells(2);
 		m_AddCells(3);
 	}
+
+	m_UpdateInnerBorder();
 }
 
 void Grid::m_AddCells(int direction)
 {
-	// Add cells up. The first element of each deque. 
-	if (direction == 0)
+	if (v_GridOfCells.size() > 0)
 	{
-		if (v_GridOfCells.size() > 0)
+		// Add cells up. The first element of each deque. 
+		if (direction == 0)
 		{
-			for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+			if (v_GridOfCells.size() > 0)
 			{
+				for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+				{
+					Cell l_TempCell(v_GridOfCells[i][0].m_AddCell(0));
 
-				Cell l_TempCell(v_GridOfCells[i][0].m_AddCell(0));
+					l_TempCell.m_SetId(m_iIdCounter);
 
-				v_GridOfCells[i].push_front(l_TempCell);
+					v_GridOfCells[i].push_front(l_TempCell);
 
+					m_iIdCounter++;
+				}
+			}
+		}
+		// Add cells down. The last element of each deque.
+		else if (direction == 1)
+		{
+			if (v_GridOfCells.size() > 0)
+			{
+				for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+				{
+
+					int l_iIndex = v_GridOfCells[i].size() - 1;
+
+					Cell l_TempCell(v_GridOfCells[i][l_iIndex].m_AddCell(1));
+
+					l_TempCell.m_SetId(m_iIdCounter);
+
+					v_GridOfCells[i].push_back(l_TempCell);
+
+					m_iIdCounter++;
+				}
+			}
+		}
+		// Add cells left. The each element of the first deque. 
+		else if (direction == 2)
+		{
+			if (v_GridOfCells.size() > 0)
+			{
+				std::deque<Cell> l_TempDeque;
+
+				for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
+				{
+
+					Cell l_TempCell(v_GridOfCells[0][i].m_AddCell(2));
+
+					l_TempCell.m_SetId(m_iIdCounter);
+
+					l_TempDeque.push_back(l_TempCell);
+
+					m_iIdCounter++;
+				}
+
+				v_GridOfCells.push_front(l_TempDeque);
+			}
+		}
+		// Add cells right. The each element of the last deque. 
+		else if (direction == 3)
+		{
+			if (v_GridOfCells.size() > 0)
+			{
+				std::deque<Cell> l_TempDeque;
+
+				int l_iIndex = v_GridOfCells.size() - 1;
+
+				for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
+				{
+
+					Cell l_TempCell(v_GridOfCells[l_iIndex][i].m_AddCell(3));
+
+					l_TempCell.m_SetId(m_iIdCounter);
+
+					l_TempDeque.push_back(l_TempCell);
+
+					m_iIdCounter++;
+				}
+
+				v_GridOfCells.push_back(l_TempDeque);
+			}
+		}
+
+		m_UpdateInnerBorder();
+	}
+}
+
+void Grid::m_AddCells(int direction, int numberOfLoops)
+{
+	if (v_GridOfCells.size() > 0)
+	{
+		// Add cells up. The first element of each deque. 
+		if (direction == 0)
+		{
+			for (int j = 0; j < numberOfLoops; j++)
+			{
+				if (v_GridOfCells.size() > 0)
+				{
+					for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+					{
+						Cell l_TempCell(v_GridOfCells[i][0].m_AddCell(0));
+
+						l_TempCell.m_SetId(m_iIdCounter);
+
+						v_GridOfCells[i].push_front(l_TempCell);
+
+						m_iIdCounter++;
+					}
+				}
+			}
+		}
+		// Add cells down. The last element of each deque.
+		else if (direction == 1)
+		{
+			for (int j = 0; j < numberOfLoops; j++)
+			{
+				if (v_GridOfCells.size() > 0)
+				{
+					for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+					{
+
+						int l_iIndex = v_GridOfCells[i].size() - 1;
+
+						Cell l_TempCell(v_GridOfCells[i][l_iIndex].m_AddCell(1));
+
+						l_TempCell.m_SetId(m_iIdCounter);
+
+						v_GridOfCells[i].push_back(l_TempCell);
+
+						m_iIdCounter++;
+					}
+				}
+			}
+		}
+		// Add cells left. The each element of the first deque. 
+		else if (direction == 2)
+		{
+			for (int j = 0; j < numberOfLoops; j++)
+			{
+				if (v_GridOfCells.size() > 0)
+				{
+					std::deque<Cell> l_TempDeque;
+
+					for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
+					{
+
+						Cell l_TempCell(v_GridOfCells[0][i].m_AddCell(2));
+
+						l_TempCell.m_SetId(m_iIdCounter);
+
+						l_TempDeque.push_back(l_TempCell);
+
+						m_iIdCounter++;
+					}
+
+					v_GridOfCells.push_front(l_TempDeque);
+				}
+			}
+		}
+		// Add cells right. The each element of the last deque. 
+		else if (direction == 3)
+		{
+			for (int j = 0; j < numberOfLoops; j++)
+			{
+				if (v_GridOfCells.size() > 0)
+				{
+					std::deque<Cell> l_TempDeque;
+
+					int l_iIndex = v_GridOfCells.size() - 1;
+
+					for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
+					{
+
+						Cell l_TempCell(v_GridOfCells[l_iIndex][i].m_AddCell(3));
+
+						l_TempCell.m_SetId(m_iIdCounter);
+
+						l_TempDeque.push_back(l_TempCell);
+
+						m_iIdCounter++;
+					}
+
+					v_GridOfCells.push_back(l_TempDeque);
+				}
+			}
+		}
+
+		m_UpdateInnerBorder();
+	}
+}
+
+void Grid::m_CheckPlayerInCell(sf::Vector2f playerPos)
+{
+	if (v_GridOfCells.size() > 0)
+	{
+		for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+		{
+			for (unsigned int j = 0; j < v_GridOfCells[i].size(); j++)
+			{
+				if (v_GridOfCells[i][j].m_PointInsideCell(playerPos))
+				{
+					std::cout << v_GridOfCells[i][j].m_GetId() << std::endl;
+				}
 			}
 		}
 	}
-	// Add cells down. The last element of each deque.
-	else if (direction == 1)
+}
+
+void Grid::m_UpdateInnerBorder()
+{
+	if (v_GridOfCells.size() > 2)
 	{
-		if (v_GridOfCells.size() > 0)
-		{
-			for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
-			{
+		sf::Vector2f l_NewPosition = v_GridOfCells[2][2].m_GetPosition();
 
-				int l_iIndex = v_GridOfCells[i].size() - 1; 
+		Cell l_TempCell; 
 
-				Cell l_TempCell(v_GridOfCells[i][l_iIndex].m_AddCell(1));
+		int l_iIndexX = v_GridOfCells.size() - 3, l_iIndexY = v_GridOfCells[v_GridOfCells.size() - 1].size() - 3;
 
-				v_GridOfCells[i].push_back(l_TempCell);
+		float l_fWidth = l_iIndexX * l_TempCell.m_CellSize.x;
+		float l_fHeight = l_iIndexY * l_TempCell.m_CellSize.y;
 
-			}
-		}
+		m_MapInnerBorder.setPosition(l_NewPosition);
+		m_MapInnerBorder.setSize(sf::Vector2f(l_fWidth, l_fHeight));
 	}
-	// Add cells left. The each element of the first deque. 
-	else if (direction == 2)
+}
+
+void Grid::m_PlayerExitDirection(sf::Vector2f playerPos)
+{
+	int l_iPlayerExitDirection = m_ExitBox(m_MapInnerBorder.getPosition().x, m_MapInnerBorder.getPosition().y, m_MapInnerBorder.getGlobalBounds().width, m_MapInnerBorder.getGlobalBounds().height,
+		playerPos.x, playerPos.y);
+
+	if (l_iPlayerExitDirection >= 0)
 	{
-		if (v_GridOfCells.size() > 0)
-		{
-			std::deque<Cell> l_TempDeque; 
-
-			for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
-			{
-
-				Cell l_TempCell(v_GridOfCells[0][i].m_AddCell(2));
-
-				l_TempDeque.push_back(l_TempCell);
-
-			}
-
-			v_GridOfCells.push_front(l_TempDeque);
-		}
+		m_AddCells(l_iPlayerExitDirection, 3); 
 	}
-	// Add cells right. The each element of the last deque. 
-	else if (direction == 3)
-	{
-		if (v_GridOfCells.size() > 0)
-		{
-			std::deque<Cell> l_TempDeque;
 
-			int l_iIndex = v_GridOfCells.size() - 1; 
-
-			for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
-			{
-
-				Cell l_TempCell(v_GridOfCells[l_iIndex][i].m_AddCell(3));
-
-				l_TempDeque.push_back(l_TempCell);
-
-			}
-
-			v_GridOfCells.push_back(l_TempDeque);
-		}
-	}
-	
 }
 
 void Grid::m_DrawGrid(sf::RenderWindow& window)
@@ -117,6 +287,8 @@ void Grid::m_DrawGrid(sf::RenderWindow& window)
 				v_GridOfCells[i][j].m_DrawCell(window);
 			}
 		}
+
+		// window.draw(m_MapInnerBorder);
 	}
 }
 
@@ -140,5 +312,7 @@ void Grid::m_DrawGrid(sf::RenderWindow& window, sf::View& viewRect)
 				}
 			}
 		}
+
+		// window.draw(m_MapInnerBorder);
 	}
 }
