@@ -142,6 +142,35 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 
 						l_TempCell.m_SetId(m_iIdCounter);
 
+						// Set Tile 
+
+						if (v_GridOfCells[i][1].m_GetTile() == tile::mountain)
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 40)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+						else
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 33)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+
 						v_GridOfCells[i].push_front(l_TempCell);
 
 						m_iIdCounter++;
@@ -164,6 +193,35 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						Cell l_TempCell(v_GridOfCells[i][l_iIndex].m_AddCell(1));
 
 						l_TempCell.m_SetId(m_iIdCounter);
+
+						// Set Tile 
+
+						if (v_GridOfCells[i][l_iIndex - 1].m_GetTile() == tile::mountain)
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 40)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+						else
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 33)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
 
 						v_GridOfCells[i].push_back(l_TempCell);
 
@@ -188,6 +246,35 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 
 						l_TempCell.m_SetId(m_iIdCounter);
 
+						// Set Tile 
+
+						if (v_GridOfCells[1][i].m_GetTile() == tile::mountain)
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 40)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+						else
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 33)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+
 						l_TempDeque.push_back(l_TempCell);
 
 						m_iIdCounter++;
@@ -211,9 +298,42 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 					for (unsigned int i = 0; i < v_GridOfCells[0].size(); i++)
 					{
 
+						// Create Cell
+
 						Cell l_TempCell(v_GridOfCells[l_iIndex][i].m_AddCell(3));
 
 						l_TempCell.m_SetId(m_iIdCounter);
+
+						// Set Tile 
+
+						if (v_GridOfCells[l_iIndex - 1][i].m_GetTile() == tile ::mountain)
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 40)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+						else
+						{
+							int l_iPlaceMountain = m_GererateInt(0, 100);
+
+							if (l_iPlaceMountain <= 33)
+							{
+								l_TempCell.m_SetTile(tile::mountain);
+							}
+							else
+							{
+								l_TempCell.m_SetTile(tile::grass);
+							}
+						}
+
+						// Add to map
 
 						l_TempDeque.push_back(l_TempCell);
 
@@ -378,6 +498,10 @@ void Grid::m_AddMountainToMap()
 	}
 
 	std::cout << "Added Mountain To Map." << std::endl;
+}
+
+void Grid::m_SetCellTile(Cell& currentCell)
+{
 }
 
 void Grid::m_DrawGrid(sf::RenderWindow& window)

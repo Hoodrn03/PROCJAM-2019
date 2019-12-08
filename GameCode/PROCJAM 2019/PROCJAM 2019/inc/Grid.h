@@ -59,6 +59,8 @@ public:
 
 	void m_AddMountainToMap(); 
 
+	void m_SetCellTile(Cell& currentCell); 
+
 	// Rendering 
 
 	void m_DrawGrid(sf::RenderWindow & window);
