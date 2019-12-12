@@ -47,7 +47,7 @@ public:
 
 	void m_AddCells(int direction, int numberOfLoops);
 
-	void m_CheckPlayerInCell(sf::Vector2f playerPos); 
+	Cell * m_CheckPlayerInCell(sf::Vector2f playerPos); 
 
 	void m_UpdateInnerBorder(); 
 

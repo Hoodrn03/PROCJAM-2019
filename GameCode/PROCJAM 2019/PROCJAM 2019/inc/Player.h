@@ -48,6 +48,13 @@ private:
 	bool m_bNoLeftMove = false, m_bNoRightMove = false;
 	bool m_bNoUpMove = false, m_bNoDownMove = false;
 
+public:
+
+	sf::Vector2f m_PlayerUpBounds = { 0, 0 };
+	sf::Vector2f m_PlayerDownBounds = { 0, 0 };
+
+private:
+
 	// Attacking
 
 	Attack m_clAttack; 
@@ -88,10 +95,6 @@ public:
 
 	// Movement 
 
-	void m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile);
-
-	void m_CheckMovementDirectionTwo(sf::FloatRect currentCellBounds, bool passableTile);
-
 	/*! \fn Movement Used to handle the movement of the player character. */
 	void m_Movement(); 
 
@@ -99,6 +102,11 @@ public:
 	void m_SetPlayerStartingPos(float x, float y);
 
 	sf::Vector2f m_GetPlayerPosition();
+
+	void m_CheckTopLeft(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize);
+	void m_CheckBotRight(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize);
+
+	void m_LimitMovement(int direction); 
 
 	// Attacking 
 

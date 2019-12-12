@@ -77,6 +77,9 @@ void GameLoop::m_RunGame()
 		
 		m_ThisPlayer->m_IsHit(m_ThisEnemyManager.m_AttackPlayer(m_ThisPlayer->m_GetPlayerPosition()));
 
+		
+		
+
 		// End of Update
 
 		// Handle Events 
@@ -121,8 +124,25 @@ void GameLoop::m_Update()
 
 			// Update Grid
 
-		m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_GetPlayerPosition());
 		m_ThisGrid->m_PlayerExitDirection(m_ThisPlayer->m_GetPlayerPosition());
 
+			// Limit Player Movement
+		Cell* l_ptrPysCurrC = nullptr;
+
+		l_ptrPysCurrC = m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_PlayerUpBounds);
+
+		if (l_ptrPysCurrC != nullptr)
+		{
+			m_ThisPlayer->m_CheckTopLeft(l_ptrPysCurrC->m_IsPassable(), l_ptrPysCurrC->m_GetPosition(), l_ptrPysCurrC->m_CellSize); 
+		}
+
+		l_ptrPysCurrC = nullptr;
+
+		l_ptrPysCurrC = m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_PlayerDownBounds);
+
+		if (l_ptrPysCurrC != nullptr)
+		{
+			m_ThisPlayer->m_CheckBotRight(l_ptrPysCurrC->m_IsPassable(), l_ptrPysCurrC->m_GetPosition(), l_ptrPysCurrC->m_CellSize);
+		}
 	}
 }

@@ -349,7 +349,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 	}
 }
 
-void Grid::m_CheckPlayerInCell(sf::Vector2f playerPos)
+Cell* Grid::m_CheckPlayerInCell(sf::Vector2f playerPos)
 {
 	if (v_GridOfCells.size() > 0)
 	{
@@ -359,11 +359,13 @@ void Grid::m_CheckPlayerInCell(sf::Vector2f playerPos)
 			{
 				if (v_GridOfCells[i][j].m_PointInsideCell(playerPos))
 				{
-					std::cout << v_GridOfCells[i][j].m_GetId() << std::endl;
+					return &v_GridOfCells[i][j];
 				}
 			}
 		}
 	}
+	return nullptr; 
+
 }
 
 void Grid::m_UpdateInnerBorder()

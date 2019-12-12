@@ -58,74 +58,7 @@ void Player::m_CheckForDeath()
 	}
 }
 
-void Player::m_CheckMovementDirectionOne(sf::FloatRect currentCellBounds, bool passableTile)
-{
 
-	if (currentCellBounds.intersects(m_PlayerBody.getGlobalBounds()))
-	{
-		if (passableTile == false)
-		{
-			// Check left
-
-			if (currentCellBounds.left < m_PlayerBody.getPosition().x)
-			{
-				m_bNoLeftMove = true; 
-
-				// std::cout << "Touching A" << std::endl;
-			}
-
-			// Check up
-
-			if (currentCellBounds.top < m_PlayerBody.getPosition().y)
-			{
-				m_bNoUpMove = true;
-
-				// std::cout << "Touching W" << std::endl;
-			}
-		}
-		else
-		{
-			m_bNoUpMove = false;
-			m_bNoLeftMove = false;
-		}
-		
-	}
-
-}
-
-void Player::m_CheckMovementDirectionTwo(sf::FloatRect currentCellBounds, bool passableTile)
-{
-	if (currentCellBounds.intersects(m_PlayerBody.getGlobalBounds()))
-	{
-		if (passableTile == false)
-		{
-			// Check right
-
-			// std::cout << "cell bounds : " << currentCellBounds.left << " Player Bounds " << m_PlayerBody.getPosition().x + m_PlayerBody.getSize().x << std::endl;
-
-			if (currentCellBounds.left > m_PlayerBody.getPosition().x + 5)
-			{
-				m_bNoRightMove = true;
-
-				// td::cout << "Touching D" << std::endl;
-			}
-
-			// Check down
-
-			if (currentCellBounds.top > m_PlayerBody.getPosition().y + 5)
-			{
-				m_bNoDownMove = true;
-
-				// std::cout << "Touching S" << std::endl;
-			}
-		}
-		else
-		{
-			m_bNoRightMove = false;
-			m_bNoDownMove = false;
-		}
-	}
-}
 
 /*! \fn Movement Used to handle the movement of the player character. */
 void Player::m_Movement()
@@ -182,6 +115,11 @@ void Player::m_Movement()
 
 	m_MoveView(m_PlayerBody.getPosition()); 
 
+	// Update Variables
+
+	m_PlayerUpBounds = m_PlayerBody.getPosition();
+	m_PlayerDownBounds = sf::Vector2f(m_PlayerBody.getPosition().x + m_PlayerBody.getGlobalBounds().width, 
+		m_PlayerBody.getPosition().y + m_PlayerBody.getGlobalBounds().height);
 	// End of moving view.
 }
 
@@ -265,6 +203,109 @@ sf::Vector2f Player::m_GetPlayerPosition()
 	// std::cout << "(" << m_PlayerBody.getPosition().x << ", " << m_PlayerBody.getPosition().y << ")" << std::endl;
 
 	return m_PlayerBody.getPosition();
+}
+
+void Player::m_CheckTopLeft(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize)
+{
+	if (tilePassable == false)
+	{
+		// Check Up Movement
+
+		if (((m_PlayerUpBounds.x > cellPos.x) && (m_PlayerUpBounds.y > cellPos.y)) &&
+			((m_PlayerUpBounds.x < cellPos.x + cellSize.x) && (m_PlayerUpBounds.y < cellPos.y + cellSize.y)))
+		{
+			if (m_PlayerUpBounds.y - 5 < cellPos.y + cellSize.y)
+			{
+				std::cout << "Stop Up" << std::endl;
+
+				m_LimitMovement(0); 
+			}
+
+			if (m_PlayerUpBounds.x - 5 < cellPos.x + cellSize.x)
+			{
+				std::cout << "Stop Left" << std::endl;
+
+				m_LimitMovement(2);
+			}
+			
+		}
+	}
+	else 
+	{
+		m_LimitMovement(4);
+	}
+}
+
+void Player::m_CheckBotRight(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize)
+{
+	if (tilePassable == false)
+	{
+		// Check Up Movement
+
+		if (((m_PlayerDownBounds.x > cellPos.x) && (m_PlayerDownBounds.y > cellPos.y)) &&
+			((m_PlayerDownBounds.x < cellPos.x + cellSize.x) && (m_PlayerDownBounds.y < cellPos.y + cellSize.y)))
+		{
+			if (m_PlayerDownBounds.y - 5 < cellPos.y + cellSize.y)
+			{
+				std::cout << "Stop Down" << std::endl;
+
+				m_LimitMovement(1);
+			}
+
+			if (m_PlayerDownBounds.x - 5 < cellPos.x + cellSize.x)
+			{
+				std::cout << "Stop Right" << std::endl;
+
+				m_LimitMovement(3);
+			}
+
+		}
+	}
+	else
+	{
+		m_LimitMovement(5);
+	}
+}
+
+void Player::m_LimitMovement(int direction)
+{
+	switch (direction)
+	{
+		// Up 
+	case 0: 
+		m_bNoUpMove = true; 
+		break;
+
+		// Down 
+	case 1:
+		m_bNoDownMove = true;
+		break;
+
+		// Left
+	case 2:
+		m_bNoLeftMove = true;
+		break;
+
+		// Right
+	case 3:
+		m_bNoRightMove = true;
+		break;
+
+		// Reset Top Left
+	case 4:
+		m_bNoUpMove = false;
+		m_bNoLeftMove = false;
+		break;
+
+		// Reset Bottom Right
+	case 5:
+		m_bNoDownMove = false;
+		m_bNoRightMove = false;
+		break;
+
+	default:
+		break;
+	}
 }
 
 sf::Vector2f Player::m_GetPlayerSize()

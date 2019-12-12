@@ -36,15 +36,16 @@ private:
 	/*! \var The main cell body used to hold the sprite for the cell. */
 	sf::RectangleShape m_CellBody; 
 
+	tile m_ThisTile = tile::null;
+
+	int m_iID = 0;
+
 public:
 
 	/*! \var The constant size used for every cell in the map. */
 	const sf::Vector2f m_CellSize = sf::Vector2f(48, 48); 
 
-	int m_iID = 0; 
 	// Member Functions
-
-	tile m_ThisTile = tile::null; 
 
 public:
 
@@ -75,5 +76,7 @@ public:
 	void m_SetTile(tile newTile);
 
 	tile m_GetTile(); 
+
+	bool m_IsPassable(); 
 
 };
