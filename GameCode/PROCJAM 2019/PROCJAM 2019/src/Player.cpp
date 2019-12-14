@@ -211,7 +211,7 @@ void Player::m_CheckTopLeft(bool tilePassable, sf::Vector2f cellPos, sf::Vector2
 	{
 		// Check Up Movement
 
-		if (((m_PlayerUpBounds.x > cellPos.x) && (m_PlayerUpBounds.y > cellPos.y)) &&
+		if (((m_PlayerUpBounds.x - 5 > cellPos.x) && (m_PlayerUpBounds.y - 5 > cellPos.y)) &&
 			((m_PlayerUpBounds.x < cellPos.x + cellSize.x) && (m_PlayerUpBounds.y < cellPos.y + cellSize.y)))
 		{
 			if (m_PlayerUpBounds.y - 5 < cellPos.y + cellSize.y)
@@ -245,14 +245,14 @@ void Player::m_CheckBotRight(bool tilePassable, sf::Vector2f cellPos, sf::Vector
 		if (((m_PlayerDownBounds.x > cellPos.x) && (m_PlayerDownBounds.y > cellPos.y)) &&
 			((m_PlayerDownBounds.x < cellPos.x + cellSize.x) && (m_PlayerDownBounds.y < cellPos.y + cellSize.y)))
 		{
-			if (m_PlayerDownBounds.y - 5 < cellPos.y + cellSize.y)
+			if (m_PlayerDownBounds.y < cellPos.y + cellSize.y)
 			{
 				std::cout << "Stop Down" << std::endl;
 
 				m_LimitMovement(1);
 			}
 
-			if (m_PlayerDownBounds.x - 5 < cellPos.x + cellSize.x)
+			if (m_PlayerDownBounds.x < cellPos.x + cellSize.x + 5)
 			{
 				std::cout << "Stop Right" << std::endl;
 
