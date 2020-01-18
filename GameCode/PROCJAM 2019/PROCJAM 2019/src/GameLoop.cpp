@@ -37,7 +37,7 @@ void GameLoop::m_RunGame()
 
 	m_ThisPlayer.reset(new Player());
 
-	m_ThisPlayer->m_CreateView(800, 800);
+	m_ThisPlayer->m_CreateView(300, 300);
 
 	// m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
 
@@ -77,8 +77,7 @@ void GameLoop::m_RunGame()
 		
 		m_ThisPlayer->m_IsHit(m_ThisEnemyManager.m_AttackPlayer(m_ThisPlayer->m_GetPlayerPosition()));
 
-		
-		
+		m_SpawnNewEnemy();
 
 		// End of Update
 
@@ -128,78 +127,175 @@ void GameLoop::m_Update()
 
 		m_ThisGrid->m_PlayerExitDirection(m_ThisPlayer->m_GetPlayerCenter()); 
 
-		// Check Cell each radius is inside. 
+		m_CheckPlayerMovement();
 
-		Cell *m_TempCell; 
-
-		// Check Top.
-
-		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_UpRadius.getPosition()));
-
-		// See if it is passable 
-
-		if (m_TempCell->m_IsPassable() == false)
-		{
-			// If not prevent that directional movement
-
-			m_ThisPlayer->m_LimitMovement(0);
-		}
-		else
-		{
-			m_ThisPlayer->m_LimitMovement(4);
-		}
-
-		// Check Left
-
-		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_LeftRadius.getPosition()));
-
-		// See if it is passable 
-
-		if (m_TempCell->m_IsPassable() == false)
-		{
-			// If not prevent that directional movement
-
-			m_ThisPlayer->m_LimitMovement(2);
-		}
-		else
-		{
-			m_ThisPlayer->m_LimitMovement(6);
-		}
-
-		// Check Down
-
-		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_DownRadius.getPosition()));
-
-		// See if it is passable 
-
-		if (m_TempCell->m_IsPassable() == false)
-		{
-			// If not prevent that directional movement
-
-			m_ThisPlayer->m_LimitMovement(1);
-		}
-		else
-		{
-			m_ThisPlayer->m_LimitMovement(5);
-		}
-
-		// Check Right
-
-		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_RightRadius.getPosition()));
-
-		// See if it is passable 
-
-		if (m_TempCell->m_IsPassable() == false)
-		{
-			// If not prevent that directional movement
-
-			m_ThisPlayer->m_LimitMovement(3);
-		}
-		else
-		{
-			m_ThisPlayer->m_LimitMovement(7);
-		}
-
-		
+		m_CheckEnemyMovement(); 
 	}
+}
+
+void GameLoop::m_CheckPlayerMovement()
+{
+	// Check Cell each radius is inside. 
+
+	Cell* m_TempCell;
+
+	// Check Top.
+
+	m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_UpRadius.getPosition()));
+
+	// See if it is passable 
+
+	if (m_TempCell->m_IsPassable() == false)
+	{
+		// If not prevent that directional movement
+
+		m_ThisPlayer->m_LimitMovement(0);
+	}
+	else
+	{
+		m_ThisPlayer->m_LimitMovement(4);
+	}
+
+	// Check Left
+
+	m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_LeftRadius.getPosition()));
+
+	// See if it is passable 
+
+	if (m_TempCell->m_IsPassable() == false)
+	{
+		// If not prevent that directional movement
+
+		m_ThisPlayer->m_LimitMovement(2);
+	}
+	else
+	{
+		m_ThisPlayer->m_LimitMovement(6);
+	}
+
+	// Check Down
+
+	m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_DownRadius.getPosition()));
+
+	// See if it is passable 
+
+	if (m_TempCell->m_IsPassable() == false)
+	{
+		// If not prevent that directional movement
+
+		m_ThisPlayer->m_LimitMovement(1);
+	}
+	else
+	{
+		m_ThisPlayer->m_LimitMovement(5);
+	}
+
+	// Check Right
+
+	m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_RightRadius.getPosition()));
+
+	// See if it is passable 
+
+	if (m_TempCell->m_IsPassable() == false)
+	{
+		// If not prevent that directional movement
+
+		m_ThisPlayer->m_LimitMovement(3);
+	}
+	else
+	{
+		m_ThisPlayer->m_LimitMovement(7);
+	}
+}
+
+void GameLoop::m_CheckEnemyMovement()
+{
+	// Check Enemy up Movement
+
+	if(m_ThisEnemyManager.m_EnemyCount() > 0)
+	{ 
+		for (unsigned int i = 0; i < m_ThisEnemyManager.m_EnemyCount(); i++)
+		{
+			
+			Cell* m_TempCell;
+
+			// Check Top.
+
+			m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisEnemyManager.m_GetEnemy(i).m_UpRadius.getPosition()));
+
+			// See if it is passable 
+
+			if (m_TempCell->m_IsPassable() == false)
+			{
+				// If not prevent that directional movement
+
+				m_ThisEnemyManager.m_LimitMovement(0, i);
+			}
+			else
+			{
+				m_ThisEnemyManager.m_LimitMovement(4, i);
+			}
+
+			// Check Bottom 
+
+			m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisEnemyManager.m_GetEnemy(i).m_DownRadius.getPosition()));
+
+			// See if it is passable 
+
+			if (m_TempCell->m_IsPassable() == false)
+			{
+				// If not prevent that directional movement
+
+				m_ThisEnemyManager.m_LimitMovement(2, i);
+			}
+			else
+			{
+				m_ThisEnemyManager.m_LimitMovement(6, i);
+			}
+
+			// Check Left 
+
+			m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisEnemyManager.m_GetEnemy(i).m_LeftRadius.getPosition()));
+
+			// See if it is passable 
+
+			if (m_TempCell->m_IsPassable() == false)
+			{
+				// If not prevent that directional movement
+
+				m_ThisEnemyManager.m_LimitMovement(1, i);
+			}
+			else
+			{
+				m_ThisEnemyManager.m_LimitMovement(5, i);
+			}
+
+			// Check Right 
+
+			m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisEnemyManager.m_GetEnemy(i).m_RightRadius.getPosition()));
+
+			// See if it is passable 
+
+			if (m_TempCell->m_IsPassable() == false)
+			{
+				// If not prevent that directional movement
+
+				m_ThisEnemyManager.m_LimitMovement(3, i);
+			}
+			else
+			{
+				m_ThisEnemyManager.m_LimitMovement(7, i);
+			}
+		}
+	}
+}
+
+void GameLoop::m_SpawnNewEnemy()
+{
+	if (m_ThisEnemyManager.m_EnemyCount() <= m_MaxEnemyCount)
+	{
+		m_ThisEnemyManager.m_AddEnemies(m_ThisGrid->m_GetStartingPoint()); 
+	}
+
+	m_MaxEnemyCount = m_ThisGrid->m_EnemySpawnModifier(); 
 }

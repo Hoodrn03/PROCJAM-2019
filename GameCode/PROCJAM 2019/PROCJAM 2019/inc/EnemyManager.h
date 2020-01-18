@@ -40,5 +40,10 @@ public:
 
 	void m_DrawEnemies(sf::RenderWindow& window); 
 
+	void m_LimitMovement(int direction, int whichEnemy); 
+
+	Enemy m_GetEnemy(int index);
+
+	int m_EnemyCount(); 
 
 };

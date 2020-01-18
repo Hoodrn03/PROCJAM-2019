@@ -40,6 +40,8 @@ private:
 	/*! \var This will hold and maintain the grid/map in the game. */
 	std::unique_ptr<Grid> m_ThisGrid;
 
+	int m_MaxEnemyCount = 5; 
+
 	// Member Functions 
 
 public:
@@ -49,5 +51,11 @@ public:
 
 	/*! \fn Update : Used to split some of the other functionality into a second thread. */
 	void m_Update(); 
+
+	void m_CheckPlayerMovement();
+
+	void m_CheckEnemyMovement(); 
+
+	void m_SpawnNewEnemy(); 
 
 };

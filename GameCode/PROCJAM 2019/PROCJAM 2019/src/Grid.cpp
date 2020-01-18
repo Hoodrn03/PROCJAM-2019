@@ -148,7 +148,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 40)
+							if (l_iPlaceMountain <= 25)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -161,7 +161,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 33)
+							if (l_iPlaceMountain <= 17)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -200,7 +200,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 40)
+							if (l_iPlaceMountain <= 20)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -213,7 +213,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 33)
+							if (l_iPlaceMountain <= 17)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -252,7 +252,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 40)
+							if (l_iPlaceMountain <= 20)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -265,7 +265,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 33)
+							if (l_iPlaceMountain <= 17)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -310,7 +310,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 40)
+							if (l_iPlaceMountain <= 20)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -323,7 +323,7 @@ void Grid::m_AddCells(int direction, int numberOfLoops)
 						{
 							int l_iPlaceMountain = m_GererateInt(0, 100);
 
-							if (l_iPlaceMountain <= 33)
+							if (l_iPlaceMountain <= 17)
 							{
 								l_TempCell.m_SetTile(tile::mountain);
 							}
@@ -422,6 +422,15 @@ sf::Vector2f Grid::m_GetStartingPoint()
 	} while (l_bEndGeneration == false);
 
 	return l_ReturnVector;
+}
+
+int Grid::m_EnemySpawnModifier()
+{
+	int l_ReturnValue = v_GridOfCells.size() + v_GridOfCells[0].size(); 
+
+	l_ReturnValue = l_ReturnValue / 3; 
+
+	return l_ReturnValue;
 }
 
 void Grid::m_AddGrassToMap()
@@ -562,7 +571,7 @@ void Grid::m_DrawGrid(sf::RenderWindow& window, sf::View& viewRect)
 
 				sf::Vector2f l_CellPos = v_GridOfCells[i][j].m_GetPosition(); 
 
-				if (m_InsideBox(l_ViewPos.x, l_ViewPos.y, l_ViewSize.x, l_ViewSize.y, l_CellPos.x, l_CellPos.y))
+				if (m_InsideBox(l_ViewPos.x - 50, l_ViewPos.y - 50, l_ViewSize.x + 50, l_ViewSize.y + 50, l_CellPos.x, l_CellPos.y))
 				{
 					v_GridOfCells[i][j].m_DrawCell(window); 
 				}

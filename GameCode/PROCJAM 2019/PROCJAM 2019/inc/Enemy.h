@@ -50,6 +50,18 @@ private:
 	/*! \var The current health for the enemy. Once it reaches 0 they die. */
 	float m_fHealth = 100.f;
 
+	bool m_bNoLeftMove = false, m_bNoRightMove = false;
+	bool m_bNoUpMove = false, m_bNoDownMove = false;
+
+	bool m_bEnemyMoving = false; 
+
+public:
+
+	sf::CircleShape m_UpRadius;
+	sf::CircleShape m_DownRadius;
+	sf::CircleShape m_LeftRadius;
+	sf::CircleShape m_RightRadius;
+
 	// Member Functions 
 
 public:
@@ -74,6 +86,8 @@ public:
 
 	/*! \fn Move */
 	void m_Move(); 
+
+	void m_LimitMovement(int direction);
 
 	/*! \fn MoveToPlayer 
 	Param One - sf::vector2f The player's current position

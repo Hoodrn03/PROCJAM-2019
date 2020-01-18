@@ -55,6 +55,8 @@ public:
 
 	sf::Vector2f m_GetStartingPoint(); 
 
+	int m_EnemySpawnModifier(); 
+
 	// Tile Generation
 
 	void m_AddGrassToMap(); 
