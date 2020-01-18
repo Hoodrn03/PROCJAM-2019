@@ -19,6 +19,24 @@ Player::Player()
 
 	m_AttackRadius.setFillColor(sf::Color::Green);
 
+	// Create Directional Radius
+
+	m_UpRadius.setRadius(2);
+	m_UpRadius.setFillColor(sf::Color::Black);
+	m_UpRadius.setOrigin(m_UpRadius.getGlobalBounds().width / 2, m_UpRadius.getGlobalBounds().height / 2);
+
+	m_DownRadius.setRadius(2);
+	m_DownRadius.setFillColor(sf::Color::Black);
+	m_DownRadius.setOrigin(m_DownRadius.getGlobalBounds().width / 2, m_DownRadius.getGlobalBounds().height / 2);
+
+	m_LeftRadius.setRadius(2);
+	m_LeftRadius.setFillColor(sf::Color::Black);
+	m_LeftRadius.setOrigin(m_LeftRadius.getGlobalBounds().width / 2, m_LeftRadius.getGlobalBounds().height / 2);
+
+	m_RightRadius.setRadius(2);
+	m_RightRadius.setFillColor(sf::Color::Black);
+	m_RightRadius.setOrigin(m_RightRadius.getGlobalBounds().width / 2, m_RightRadius.getGlobalBounds().height / 2);
+
 }
 
 Player::~Player()
@@ -36,6 +54,13 @@ void Player::m_DrawPlayer(sf::RenderWindow& window)
 	window.draw(m_PlayerBody);
 
 	m_clAttack.m_DrawAttackBody(window);
+
+	/*
+	window.draw(m_UpRadius);
+	window.draw(m_DownRadius);
+	window.draw(m_LeftRadius);
+	window.draw(m_RightRadius);
+	*/
 }
 
 /*! \fn Update Used to update the player once each loop. */
@@ -57,8 +82,6 @@ void Player::m_CheckForDeath()
 		std::cout << "You Lose" << std::endl;
 	}
 }
-
-
 
 /*! \fn Movement Used to handle the movement of the player character. */
 void Player::m_Movement()
@@ -117,9 +140,13 @@ void Player::m_Movement()
 
 	// Update Variables
 
-	m_PlayerUpBounds = m_PlayerBody.getPosition();
-	m_PlayerDownBounds = sf::Vector2f(m_PlayerBody.getPosition().x + m_PlayerBody.getGlobalBounds().width, 
-		m_PlayerBody.getPosition().y + m_PlayerBody.getGlobalBounds().height);
+	sf::Vector2f l_PlayerSize(m_PlayerBody.getGlobalBounds().height, m_PlayerBody.getGlobalBounds().width);
+
+	m_UpRadius.setPosition(m_GetPlayerCenter() - sf::Vector2f(0, m_PlayerBody.getGlobalBounds().height / 2));
+	m_DownRadius.setPosition(m_GetPlayerCenter() + sf::Vector2f(0, m_PlayerBody.getGlobalBounds().height / 2));
+	m_LeftRadius.setPosition(m_GetPlayerCenter() - sf::Vector2f(m_PlayerBody.getGlobalBounds().width / 2, 0));
+	m_RightRadius.setPosition(m_GetPlayerCenter() + sf::Vector2f(m_PlayerBody.getGlobalBounds().width / 2, 0));
+
 	// End of moving view.
 }
 
@@ -205,66 +232,13 @@ sf::Vector2f Player::m_GetPlayerPosition()
 	return m_PlayerBody.getPosition();
 }
 
-void Player::m_CheckTopLeft(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize)
+sf::Vector2f Player::m_GetPlayerCenter()
 {
-	if (tilePassable == false)
-	{
-		// Check Up Movement
+	sf::Vector2f l_ReturnVector;
 
-		if (((m_PlayerUpBounds.x - 5 > cellPos.x) && (m_PlayerUpBounds.y - 5 > cellPos.y)) &&
-			((m_PlayerUpBounds.x < cellPos.x + cellSize.x) && (m_PlayerUpBounds.y < cellPos.y + cellSize.y)))
-		{
-			if (m_PlayerUpBounds.y - 5 < cellPos.y + cellSize.y)
-			{
-				std::cout << "Stop Up" << std::endl;
+	l_ReturnVector = m_PlayerBody.getPosition() + sf::Vector2f(m_PlayerBody.getGlobalBounds().width / 2, m_PlayerBody.getGlobalBounds().height / 2);
 
-				m_LimitMovement(0); 
-			}
-
-			if (m_PlayerUpBounds.x - 5 < cellPos.x + cellSize.x)
-			{
-				std::cout << "Stop Left" << std::endl;
-
-				m_LimitMovement(2);
-			}
-			
-		}
-	}
-	else 
-	{
-		m_LimitMovement(4);
-	}
-}
-
-void Player::m_CheckBotRight(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize)
-{
-	if (tilePassable == false)
-	{
-		// Check Up Movement
-
-		if (((m_PlayerDownBounds.x > cellPos.x) && (m_PlayerDownBounds.y > cellPos.y)) &&
-			((m_PlayerDownBounds.x < cellPos.x + cellSize.x) && (m_PlayerDownBounds.y < cellPos.y + cellSize.y)))
-		{
-			if (m_PlayerDownBounds.y < cellPos.y + cellSize.y)
-			{
-				std::cout << "Stop Down" << std::endl;
-
-				m_LimitMovement(1);
-			}
-
-			if (m_PlayerDownBounds.x < cellPos.x + cellSize.x + 5)
-			{
-				std::cout << "Stop Right" << std::endl;
-
-				m_LimitMovement(3);
-			}
-
-		}
-	}
-	else
-	{
-		m_LimitMovement(5);
-	}
+	return l_ReturnVector;
 }
 
 void Player::m_LimitMovement(int direction)
@@ -291,15 +265,23 @@ void Player::m_LimitMovement(int direction)
 		m_bNoRightMove = true;
 		break;
 
-		// Reset Top Left
+		// Reset Top 
 	case 4:
 		m_bNoUpMove = false;
+		break;
+
+		// Reset Bottom 
+	case 5:
+		m_bNoDownMove = false;
+		break;
+
+		// Reset Left
+	case 6:
 		m_bNoLeftMove = false;
 		break;
 
-		// Reset Bottom Right
-	case 5:
-		m_bNoDownMove = false;
+		// Reset Right
+	case 7:
 		m_bNoRightMove = false;
 		break;
 

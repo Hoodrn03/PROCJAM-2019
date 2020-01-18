@@ -48,11 +48,6 @@ private:
 	bool m_bNoLeftMove = false, m_bNoRightMove = false;
 	bool m_bNoUpMove = false, m_bNoDownMove = false;
 
-public:
-
-	sf::Vector2f m_PlayerUpBounds = { 0, 0 };
-	sf::Vector2f m_PlayerDownBounds = { 0, 0 };
-
 private:
 
 	// Attacking
@@ -74,6 +69,13 @@ private:
 	float m_fImunityLimiter = 1.5f;
 
 	sf::Clock m_ImunityTimer; 
+
+public:
+
+	sf::CircleShape m_UpRadius;
+	sf::CircleShape m_DownRadius;
+	sf::CircleShape m_LeftRadius;
+	sf::CircleShape m_RightRadius;
 
 	// Member Functions 
 
@@ -102,9 +104,7 @@ public:
 	void m_SetPlayerStartingPos(float x, float y);
 
 	sf::Vector2f m_GetPlayerPosition();
-
-	void m_CheckTopLeft(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize);
-	void m_CheckBotRight(bool tilePassable, sf::Vector2f cellPos, sf::Vector2f cellSize);
+	sf::Vector2f m_GetPlayerCenter(); 
 
 	void m_LimitMovement(int direction); 
 

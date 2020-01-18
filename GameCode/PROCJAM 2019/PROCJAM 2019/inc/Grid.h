@@ -53,6 +53,8 @@ public:
 
 	void m_PlayerExitDirection(sf::Vector2f playerPos); 
 
+	sf::Vector2f m_GetStartingPoint(); 
+
 	// Tile Generation
 
 	void m_AddGrassToMap(); 

@@ -398,6 +398,32 @@ void Grid::m_PlayerExitDirection(sf::Vector2f playerPos)
 
 }
 
+sf::Vector2f Grid::m_GetStartingPoint()
+{
+	int l_iXpos, l_iYpos; 
+
+	bool l_bEndGeneration = false; 
+
+	sf::Vector2f l_ReturnVector; 
+
+	do
+	{
+
+		l_iXpos = m_GererateInt(0, v_GridOfCells.size());
+		l_iYpos = m_GererateInt(0, v_GridOfCells[l_iXpos].size());
+
+		if (v_GridOfCells[l_iXpos][l_iYpos].m_GetTile() == tile::grass)
+		{
+			l_ReturnVector = v_GridOfCells[l_iXpos][l_iYpos].m_GetPosition();
+
+			l_bEndGeneration = true; 
+		}
+
+	} while (l_bEndGeneration == false);
+
+	return l_ReturnVector;
+}
+
 void Grid::m_AddGrassToMap()
 {
 	if (v_GridOfCells.size() > 0)

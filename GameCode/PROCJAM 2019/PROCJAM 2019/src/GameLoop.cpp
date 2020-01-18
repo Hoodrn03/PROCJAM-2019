@@ -41,16 +41,16 @@ void GameLoop::m_RunGame()
 
 	// m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPositionFromGrid());
 
-	m_ThisPlayer->m_SetPlayerStartingPos(0, 0);
+	m_ThisPlayer->m_SetPlayerStartingPos(m_ThisGrid->m_GetStartingPoint());
 	m_ThisPlayer->m_SetWindowPtr(m_ptrWindow->m_GetWindow());
 
 	// Init Enemies
 
-	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(300, 300));
+	m_ThisEnemyManager.m_AddEnemies(m_ThisGrid->m_GetStartingPoint());
 
-	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(150, 300));
+	m_ThisEnemyManager.m_AddEnemies(m_ThisGrid->m_GetStartingPoint());
 
-	m_ThisEnemyManager.m_AddEnemies(sf::Vector2f(300, 200));
+	m_ThisEnemyManager.m_AddEnemies(m_ThisGrid->m_GetStartingPoint());
 
 	// Test Items 
 
@@ -124,25 +124,82 @@ void GameLoop::m_Update()
 
 			// Update Grid
 
-		m_ThisGrid->m_PlayerExitDirection(m_ThisPlayer->m_GetPlayerPosition());
+		// Add new map cells 
 
-			// Limit Player Movement
-		Cell* l_ptrPysCurrC = nullptr;
+		m_ThisGrid->m_PlayerExitDirection(m_ThisPlayer->m_GetPlayerCenter()); 
 
-		l_ptrPysCurrC = m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_PlayerUpBounds);
+		// Check Cell each radius is inside. 
 
-		if (l_ptrPysCurrC != nullptr)
+		Cell *m_TempCell; 
+
+		// Check Top.
+
+		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_UpRadius.getPosition()));
+
+		// See if it is passable 
+
+		if (m_TempCell->m_IsPassable() == false)
 		{
-			m_ThisPlayer->m_CheckTopLeft(l_ptrPysCurrC->m_IsPassable(), l_ptrPysCurrC->m_GetPosition(), l_ptrPysCurrC->m_CellSize); 
+			// If not prevent that directional movement
+
+			m_ThisPlayer->m_LimitMovement(0);
+		}
+		else
+		{
+			m_ThisPlayer->m_LimitMovement(4);
 		}
 
-		l_ptrPysCurrC = nullptr;
+		// Check Left
 
-		l_ptrPysCurrC = m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_PlayerDownBounds);
+		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_LeftRadius.getPosition()));
 
-		if (l_ptrPysCurrC != nullptr)
+		// See if it is passable 
+
+		if (m_TempCell->m_IsPassable() == false)
 		{
-			m_ThisPlayer->m_CheckBotRight(l_ptrPysCurrC->m_IsPassable(), l_ptrPysCurrC->m_GetPosition(), l_ptrPysCurrC->m_CellSize);
+			// If not prevent that directional movement
+
+			m_ThisPlayer->m_LimitMovement(2);
 		}
+		else
+		{
+			m_ThisPlayer->m_LimitMovement(6);
+		}
+
+		// Check Down
+
+		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_DownRadius.getPosition()));
+
+		// See if it is passable 
+
+		if (m_TempCell->m_IsPassable() == false)
+		{
+			// If not prevent that directional movement
+
+			m_ThisPlayer->m_LimitMovement(1);
+		}
+		else
+		{
+			m_ThisPlayer->m_LimitMovement(5);
+		}
+
+		// Check Right
+
+		m_TempCell = (m_ThisGrid->m_CheckPlayerInCell(m_ThisPlayer->m_RightRadius.getPosition()));
+
+		// See if it is passable 
+
+		if (m_TempCell->m_IsPassable() == false)
+		{
+			// If not prevent that directional movement
+
+			m_ThisPlayer->m_LimitMovement(3);
+		}
+		else
+		{
+			m_ThisPlayer->m_LimitMovement(7);
+		}
+
+		
 	}
 }

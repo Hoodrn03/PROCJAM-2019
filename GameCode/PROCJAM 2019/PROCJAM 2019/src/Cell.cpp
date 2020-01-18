@@ -137,13 +137,16 @@ tile Cell::m_GetTile()
 
 bool Cell::m_IsPassable()
 {
-	if (m_ThisTile == tile::mountain)
+	if (this != nullptr)
 	{
-		return false;
-	}
-	else
-	{
-		return true; 
+		if (m_ThisTile == tile::mountain)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }
 
