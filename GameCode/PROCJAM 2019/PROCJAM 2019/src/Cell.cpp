@@ -4,8 +4,6 @@ Cell::Cell()
 {
 	m_CellBody.setSize(m_CellSize);
 
-	m_CellBody.setOutlineThickness(1.f);
-
 	m_CellBody.setOutlineColor(sf::Color::Blue); 
 
 	m_CellBody.setPosition(100, 100); 
@@ -17,8 +15,6 @@ param one: The osition to place the cell.
 Cell::Cell(sf::Vector2f position)
 {
 	m_CellBody.setSize(m_CellSize);
-
-	m_CellBody.setOutlineThickness(1.f);
 
 	m_CellBody.setOutlineColor(sf::Color::Blue);
 
@@ -93,10 +89,13 @@ sf::Vector2f Cell::m_AddCell(int direction)
 
 bool Cell::m_PointInsideCell(sf::Vector2f pointToCheck)
 {
-	if (m_InsideBox(m_CellBody.getPosition().x, m_CellBody.getPosition().y, m_CellSize.x, m_CellSize.y,
-		pointToCheck.x, pointToCheck.y))
+	if (this != nullptr)
 	{
-		return true; 
+		if (m_InsideBox(m_CellBody.getPosition().x, m_CellBody.getPosition().y, m_CellSize.x, m_CellSize.y,
+			pointToCheck.x, pointToCheck.y))
+		{
+			return true;
+		}
 	}
 
 	return false;
@@ -148,6 +147,8 @@ bool Cell::m_IsPassable()
 			return true;
 		}
 	}
+
+	return true; 
 }
 
 

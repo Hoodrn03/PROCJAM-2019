@@ -2,6 +2,8 @@
 
 Grid::Grid()
 {
+	v_GridOfCells.clear(); 
+
 	Cell l_TempCell(sf::Vector2f(0, 0));
 
 	std::deque<Cell> l_TempDeque; 
@@ -16,6 +18,7 @@ Grid::Grid()
 
 Grid::~Grid()
 {
+	v_GridOfCells.clear();
 }
 
 void Grid::m_CreateinitialGrid(int numberOfLoops)
@@ -492,7 +495,7 @@ void Grid::m_AddMountainToMap()
 
 					// Check Down
 
-					if (j + 1 < v_GridOfCells[i].size())
+					if (j + 1 < (int)v_GridOfCells[i].size())
 					{
 						if (v_GridOfCells[i][j + 1].m_GetTile() == tile::mountain)
 						{
@@ -512,7 +515,7 @@ void Grid::m_AddMountainToMap()
 
 					// Check Right
 
-					if (i + 1 < v_GridOfCells.size())
+					if (i + 1 < (int)v_GridOfCells.size())
 					{
 						if (v_GridOfCells[i + 1][j].m_GetTile() == tile::mountain)
 						{

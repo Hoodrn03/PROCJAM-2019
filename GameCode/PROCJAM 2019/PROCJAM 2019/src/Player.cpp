@@ -36,7 +36,6 @@ Player::Player()
 	m_RightRadius.setRadius(2);
 	m_RightRadius.setFillColor(sf::Color::Black);
 	m_RightRadius.setOrigin(m_RightRadius.getGlobalBounds().width / 2, m_RightRadius.getGlobalBounds().height / 2);
-
 }
 
 Player::~Player()
@@ -72,15 +71,16 @@ void Player::m_Update()
 
 	m_Attack();
 
-	m_CheckForDeath();
 }
 
-void Player::m_CheckForDeath()
+bool Player::m_CheckForDeath()
 {
 	if (m_fLife <= 0)
 	{
-		std::cout << "You Lose" << std::endl;
+		return true; 
 	}
+
+	return false;
 }
 
 /*! \fn Movement Used to handle the movement of the player character. */
@@ -293,6 +293,11 @@ void Player::m_LimitMovement(int direction)
 sf::Vector2f Player::m_GetPlayerSize()
 {
 	return m_PlayerBody.getSize();;
+}
+
+float Player::m_GetHealth()
+{
+	return m_fLife;
 }
 
 sf::Vector2f Player::m_GetAttackPosition()

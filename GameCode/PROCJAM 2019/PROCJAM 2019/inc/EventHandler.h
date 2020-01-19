@@ -21,6 +21,7 @@ public:
 
 private:
 
+	sf::Event m_Event; 
 
 	// Member Functions 
 
@@ -31,6 +32,6 @@ public:
 	*/
 	void m_HandleEvents(sf::RenderWindow &window); 
 
-
+	sf::Event m_GetEvent(); 
 
 };

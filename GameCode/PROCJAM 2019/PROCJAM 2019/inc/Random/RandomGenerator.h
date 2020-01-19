@@ -14,8 +14,8 @@ public:
 	RandomGenerator()
 	{
 		// Sets a new seed for the random generator, allows for truely random numbers.
-
-		srand(time(NULL)); 
+		
+		srand((unsigned int)time(NULL));
 	}
 
 	// Deconstructor
@@ -41,7 +41,7 @@ public:
 	{
 		int l_Random = rand() % max + min;
 
-		std::cout << l_Random << std::endl;
+		// std::cout << l_Random << std::endl;
 
 		return l_Random; 
 	}

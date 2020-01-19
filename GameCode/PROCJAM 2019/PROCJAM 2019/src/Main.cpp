@@ -11,7 +11,7 @@ int main()
 
 	l_ptrGameLoop.reset(new GameLoop); 
 
-	l_ptrGameLoop->m_RunGame(); 
+	l_ptrGameLoop->m_MainMenu(); 
 
 	// Exit Game. 
 

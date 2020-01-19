@@ -58,7 +58,7 @@ void Enemy::m_CreateEnemy(sf::Vector2f enemyPos)
 
 	// Setup Attack Radius 
 
-	m_AttackRadius.setRadius(m_EnemyBody.getGlobalBounds().width + 10.f);
+	m_AttackRadius.setRadius(m_EnemyBody.getGlobalBounds().width + 5.f);
 
 	m_AttackRadius.setOrigin(sf::Vector2f(m_AttackRadius.getPosition().x + m_AttackRadius.getGlobalBounds().width / 2,
 		m_AttackRadius.getPosition().y + m_AttackRadius.getGlobalBounds().height / 2));

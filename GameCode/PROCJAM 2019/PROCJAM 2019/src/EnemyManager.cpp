@@ -96,7 +96,7 @@ void EnemyManager::m_DrawEnemies(sf::RenderWindow& window)
 	}
 }
 
-void EnemyManager::m_LimitMovement(int direction, int whichEnemy)
+void EnemyManager::m_LimitMovement(int direction, unsigned int whichEnemy)
 {
 	if (v_EnemyList.size() > whichEnemy)
 	{
@@ -104,7 +104,7 @@ void EnemyManager::m_LimitMovement(int direction, int whichEnemy)
 	}
 }
 
-Enemy EnemyManager::m_GetEnemy(int index)
+Enemy EnemyManager::m_GetEnemy(unsigned int index)
 {
 	if (v_EnemyList.size() > index)
 	{
@@ -112,7 +112,7 @@ Enemy EnemyManager::m_GetEnemy(int index)
 	}
 	else
 	{
-		std::cout << "Enemy List Out Of Range : " << v_EnemyList.size() << std::endl; 
+		// std::cout << "Enemy List Out Of Range : " << v_EnemyList.size() << std::endl; 
 
 		return Enemy();
 	}
@@ -120,7 +120,7 @@ Enemy EnemyManager::m_GetEnemy(int index)
 
 int EnemyManager::m_EnemyCount()
 {
-	std::cout << v_EnemyList.size() << std::endl;
+	// std::cout << v_EnemyList.size() << std::endl;
 
 	return v_EnemyList.size();
 }

@@ -93,7 +93,7 @@ public:
 	/*! \fn Update Used to update the player once each loop. */
 	void m_Update(); 
 
-	void m_CheckForDeath(); 
+	bool m_CheckForDeath(); 
 
 	// Movement 
 
@@ -124,5 +124,5 @@ public:
 
 	sf::Vector2f m_GetPlayerSize();
 
-
+	float m_GetHealth(); 
 };

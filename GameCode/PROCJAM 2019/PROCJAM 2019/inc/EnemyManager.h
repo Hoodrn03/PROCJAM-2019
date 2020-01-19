@@ -20,7 +20,7 @@ public:
 
 private:
 
-	std::vector<Enemy> v_EnemyList; 
+	std::vector<Enemy> v_EnemyList;
 
 	// Member Functions 
 
@@ -40,9 +40,9 @@ public:
 
 	void m_DrawEnemies(sf::RenderWindow& window); 
 
-	void m_LimitMovement(int direction, int whichEnemy); 
+	void m_LimitMovement(int direction, unsigned int whichEnemy);
 
-	Enemy m_GetEnemy(int index);
+	Enemy m_GetEnemy(unsigned int index);
 
 	int m_EnemyCount(); 
 

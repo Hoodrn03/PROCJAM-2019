@@ -13,15 +13,13 @@ param one: The game window in which to poll the events.
 */
 void EventHandler::m_HandleEvents(sf::RenderWindow& window)
 {
-	/*! \var The current event variable for the window, used to check the event type. */
-	sf::Event l_Event;
 
-	while (window.pollEvent(l_Event))
+	while (window.pollEvent(m_Event))
 	{
 		
 		// Handle Events
 
-		switch (l_Event.type)
+		switch (m_Event.type)
 		{
 			// Case Closed
 		case sf::Event::Closed:
@@ -36,5 +34,10 @@ void EventHandler::m_HandleEvents(sf::RenderWindow& window)
 		}
 
 	}
+}
+
+sf::Event EventHandler::m_GetEvent()
+{
+	return m_Event;
 }
 

@@ -93,8 +93,8 @@ sf::Vector2f GameWindow::m_GetLowerBounds()
 {
 	sf::Vector2f l_ReturnVector;
 
-	l_ReturnVector = sf::Vector2f(m_RenderWindow.getPosition().x + m_RenderWindow.getSize().x, 
-		m_RenderWindow.getPosition().y + m_RenderWindow.getSize().y);
+	l_ReturnVector = sf::Vector2f((float)m_RenderWindow.getPosition().x + (float)m_RenderWindow.getSize().x, 
+		(float)m_RenderWindow.getPosition().y + (float)m_RenderWindow.getSize().y);
 
 	return l_ReturnVector;
 }
