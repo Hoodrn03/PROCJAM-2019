@@ -2,7 +2,12 @@
 
 Grid::Grid()
 {
-	v_GridOfCells.clear(); 
+	for (unsigned int i = 0; i < v_GridOfCells.size(); i++)
+	{
+		v_GridOfCells[i].clear();
+	}
+
+	v_GridOfCells.clear();
 
 	Cell l_TempCell(sf::Vector2f(0, 0));
 
@@ -18,7 +23,7 @@ Grid::Grid()
 
 Grid::~Grid()
 {
-	v_GridOfCells.clear();
+	
 }
 
 void Grid::m_CreateinitialGrid(int numberOfLoops)

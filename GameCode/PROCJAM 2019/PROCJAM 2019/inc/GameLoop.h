@@ -59,7 +59,7 @@ public:
 	void m_RunGame(); 
 
 	/*! \fn Update : Used to split some of the other functionality into a second thread. */
-	void m_Update(); 
+	int m_Update();
 
 	void m_CheckPlayerMovement();
 

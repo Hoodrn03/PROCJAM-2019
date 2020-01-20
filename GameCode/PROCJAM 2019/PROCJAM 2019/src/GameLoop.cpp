@@ -212,6 +212,8 @@ void GameLoop::m_RunGame()
 
 		if (m_ThisPlayer->m_CheckForDeath() == true)
 		{
+			l_First.join();
+
 			this->m_LoseScreen(); 
 		}
 
@@ -222,7 +224,7 @@ void GameLoop::m_RunGame()
 }
 
 /*! \fn Update : Used to split some of the other functionality into a second thread. */
-void GameLoop::m_Update()
+int GameLoop::m_Update()
 {
 	while (m_ptrWindow->m_GetWindow().isOpen())
 	{
@@ -239,6 +241,11 @@ void GameLoop::m_Update()
 			m_CheckPlayerMovement();
 
 			m_CheckEnemyMovement();
+		}
+
+		if (m_ThisPlayer->m_CheckForDeath() == true)
+		{
+			return 0;
 		}
 	}
 }
