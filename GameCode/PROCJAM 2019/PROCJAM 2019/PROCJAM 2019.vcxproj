@@ -130,7 +130,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="inc\PUGIXML\pugixml.cpp" />
     <ClCompile Include="src\Attack.cpp" />
     <ClCompile Include="src\Cell.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
